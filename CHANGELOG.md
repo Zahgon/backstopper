@@ -9,7 +9,7 @@ specifically for the `backstopper-*` libraries.
 
 #### 2.x Releases
 
-- `2.0.x` Releases - [2.0.0](#200)
+- `2.0.x` Releases - [2.0.1](#201), [2.0.0](#200)
 
 #### 1.x Releases
 
@@ -24,6 +24,17 @@ specifically for the `backstopper-*` libraries.
 - `0.11.x` Releases - [0.11.5](#0115), [0.11.4](#0114), [0.11.3](#0113), [0.11.2](#0112), [0.11.1](#0111), [0.11.0](#0110)
 - `0.10.x` Releases - [0.10.0](#0100)                     
 - `0.9.x` Releases - [0.9.2](#092), [0.9.1.1](#0911), [0.9.1](#091), [0.9.0.1](#0901), [0.9.0](#090)
+
+## [2.0.1](https://github.com/Nike-Inc/backstopper/releases/tag/backstopper-v2.0.1)
+
+Released on 2024-09-15.
+
+### Fixed
+
+* Fixed the jackson `ObjectMapper` returned by 
+  `JsonUtilWithDefaultErrorContractDTOSupport.generateErrorContractObjectMapper()` so that it can be further modified,
+  for example by registering a `SimpleModule` with a custom serializer.
+  - Fixed by [dearcherian]][[contrib_dearcherian]] in pull request [#75](https://github.com/Nike-Inc/backstopper/pull/75).
 
 ## [2.0.0](https://github.com/Nike-Inc/backstopper/releases/tag/backstopper-v2.0.0)
 
