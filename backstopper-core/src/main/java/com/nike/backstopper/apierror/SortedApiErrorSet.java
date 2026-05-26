@@ -3,7 +3,6 @@ package com.nike.backstopper.apierror;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.TreeSet;
-
 import static java.util.Collections.singletonList;
 
 /**
@@ -27,7 +26,7 @@ public class SortedApiErrorSet extends TreeSet<ApiError> {
         this(DEFAULT_API_ERROR_COMPARATOR);
         addAll(values);
     }
-    
+
     public SortedApiErrorSet(Comparator<ApiError> customComparator) {
         super(customComparator);
     }
@@ -41,6 +40,6 @@ public class SortedApiErrorSet extends TreeSet<ApiError> {
      * @return The given single {@link ApiError} after it has been wrapped in a new {@link SortedApiErrorSet}.
      */
     public static SortedApiErrorSet singletonSortedSetOf(ApiError apiError) {
-        return new SortedApiErrorSet(singletonList(apiError));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

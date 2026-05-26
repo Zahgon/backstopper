@@ -3,10 +3,8 @@ package com.nike.backstopper.apierror.sample;
 import com.nike.backstopper.apierror.ApiError;
 import com.nike.backstopper.apierror.ApiErrorBase;
 import com.nike.backstopper.apierror.projectspecificinfo.ProjectApiErrors;
-
 import java.util.Map;
 import java.util.UUID;
-
 import static com.nike.backstopper.apierror.ApiErrorConstants.HTTP_STATUS_CODE_BAD_REQUEST;
 import static com.nike.backstopper.apierror.ApiErrorConstants.HTTP_STATUS_CODE_FORBIDDEN;
 import static com.nike.backstopper.apierror.ApiErrorConstants.HTTP_STATUS_CODE_INTERNAL_SERVER_ERROR;
@@ -30,6 +28,7 @@ import static com.nike.backstopper.apierror.ApiErrorConstants.HTTP_STATUS_CODE_U
  * @author Nic Munroe
  */
 public enum SampleCoreApiError implements ApiError {
+
     GENERIC_SERVICE_ERROR(10, "An error occurred while fulfilling the request", HTTP_STATUS_CODE_INTERNAL_SERVER_ERROR),
     // OUTSIDE_DEPENDENCY_RETURNED_AN_UNRECOVERABLE_ERROR (and the other wrappers around GENERIC_SERVICE_ERROR)
     //      intentionally contains values identical to GENERIC_SERVICE_ERROR (it's indistinguishable from the client
@@ -37,8 +36,7 @@ public enum SampleCoreApiError implements ApiError {
     OUTSIDE_DEPENDENCY_RETURNED_AN_UNRECOVERABLE_ERROR(GENERIC_SERVICE_ERROR),
     SERVERSIDE_VALIDATION_ERROR(GENERIC_SERVICE_ERROR),
     UNHANDLED_FRAMEWORK_ERROR(GENERIC_SERVICE_ERROR),
-    TEMPORARY_SERVICE_PROBLEM(20, "Service is temporarily unavailable, try again later",
-                              HTTP_STATUS_CODE_SERVICE_UNAVAILABLE),
+    TEMPORARY_SERVICE_PROBLEM(20, "Service is temporarily unavailable, try again later", HTTP_STATUS_CODE_SERVICE_UNAVAILABLE),
     OUTSIDE_DEPENDENCY_RETURNED_A_TEMPORARY_ERROR(TEMPORARY_SERVICE_PROBLEM),
     INVALID_REQUEST(30, "Invalid request", HTTP_STATUS_CODE_BAD_REQUEST),
     MISSING_EXPECTED_CONTENT(40, "Missing expected content", HTTP_STATUS_CODE_BAD_REQUEST),
@@ -50,11 +48,9 @@ public enum SampleCoreApiError implements ApiError {
     FORBIDDEN(100, "Forbidden access", HTTP_STATUS_CODE_FORBIDDEN),
     NOT_FOUND(110, "The requested resource was not found", HTTP_STATUS_CODE_NOT_FOUND),
     METHOD_NOT_ALLOWED(120, "Http Request method not allowed for this resource", HTTP_STATUS_CODE_METHOD_NOT_ALLOWED),
-    NO_ACCEPTABLE_REPRESENTATION(130, "No acceptable representation for this resource",
-                                 HTTP_STATUS_CODE_NOT_ACCEPTABLE),
+    NO_ACCEPTABLE_REPRESENTATION(130, "No acceptable representation for this resource", HTTP_STATUS_CODE_NOT_ACCEPTABLE),
     UNSUPPORTED_MEDIA_TYPE(140, "Unsupported media type", HTTP_STATUS_CODE_UNSUPPORTED_MEDIA_TYPE),
-    TOO_MANY_REQUESTS(150, "Too many requests or simultaneous requests not allowed for this endpoint",
-                      HTTP_STATUS_CODE_TOO_MANY_REQUESTS);
+    TOO_MANY_REQUESTS(150, "Too many requests or simultaneous requests not allowed for this endpoint", HTTP_STATUS_CODE_TOO_MANY_REQUESTS);
 
     private final ApiError delegate;
 
@@ -63,34 +59,31 @@ public enum SampleCoreApiError implements ApiError {
     }
 
     SampleCoreApiError(int errorCode, String message, int httpStatusCode) {
-        this(new ApiErrorBase(
-            "delegated-to-enum-wrapper-" + UUID.randomUUID(), errorCode, message, httpStatusCode
-        ));
+        this(new ApiErrorBase("delegated-to-enum-wrapper-" + UUID.randomUUID(), errorCode, message, httpStatusCode));
     }
 
     @Override
     public String getName() {
-        return this.name();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String getErrorCode() {
-        return delegate.getErrorCode();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String getMessage() {
-        return delegate.getMessage();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int getHttpStatusCode() {
-        return delegate.getHttpStatusCode();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public Map<String, Object> getMetadata() {
-        return delegate.getMetadata();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

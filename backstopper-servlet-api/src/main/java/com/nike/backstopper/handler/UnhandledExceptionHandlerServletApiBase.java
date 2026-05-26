@@ -2,10 +2,8 @@ package com.nike.backstopper.handler;
 
 import com.nike.backstopper.apierror.projectspecificinfo.ProjectApiErrors;
 import com.nike.backstopper.handler.adapter.RequestInfoForLoggingServletApiAdapter;
-
 import java.util.List;
 import java.util.Map;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -39,26 +37,12 @@ public abstract class UnhandledExceptionHandlerServletApiBase<T> extends Unhandl
      * and {@link jakarta.servlet.http.HttpServletResponse#setStatus(int)} will be automatically set with {@link
      * ErrorResponseInfo#httpStatusCode} as well.
      */
-    public ErrorResponseInfo<T> handleException(Throwable ex, HttpServletRequest servletRequest,
-                                                HttpServletResponse servletResponse) {
-
-        ErrorResponseInfo<T> errorResponseInfo = handleException(
-            ex, new RequestInfoForLoggingServletApiAdapter(servletRequest)
-        );
-
-        processServletResponse(errorResponseInfo, servletResponse);
-
-        return errorResponseInfo;
+    public ErrorResponseInfo<T> handleException(Throwable ex, HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @SuppressWarnings("WeakerAccess")
     protected void processServletResponse(ErrorResponseInfo<T> errorResponseInfo, HttpServletResponse servletResponse) {
-        for (Map.Entry<String, List<String>> header : errorResponseInfo.headersToAddToResponse.entrySet()) {
-            for (String headerValue : header.getValue()) {
-                servletResponse.addHeader(header.getKey(), headerValue);
-            }
-        }
-
-        servletResponse.setStatus(errorResponseInfo.httpStatusCode);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

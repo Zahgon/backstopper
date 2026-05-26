@@ -6,7 +6,6 @@ import com.nike.backstopper.handler.springboot.config.BackstopperSpringboot3WebM
 import com.nike.backstopper.handler.springboot.controller.BackstopperSpringboot3ContainerErrorController;
 import com.nike.backstopper.springboot3webmvcsample.error.SampleProjectApiError;
 import com.nike.backstopper.springboot3webmvcsample.error.SampleProjectApiErrorsImpl;
-
 import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -14,9 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.Ordered;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import java.io.IOException;
-
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -48,7 +45,7 @@ public class SampleSpringboot3WebMvcSpringConfig {
      */
     @Bean
     public ProjectApiErrors getProjectApiErrors() {
-        return new SampleProjectApiErrorsImpl();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -62,8 +59,7 @@ public class SampleSpringboot3WebMvcSpringConfig {
      */
     @Bean
     public Validator getJsr303Validator() {
-        //noinspection resource
-        return Validation.buildDefaultValidatorFactory().getValidator();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -74,26 +70,14 @@ public class SampleSpringboot3WebMvcSpringConfig {
      */
     @Bean
     public FilterRegistrationBean<?> explodingServletFilter() {
-        FilterRegistrationBean<ExplodingFilter> frb = new FilterRegistrationBean<>(new ExplodingFilter());
-        frb.setOrder(Ordered.HIGHEST_PRECEDENCE);
-        return frb;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static class ExplodingFilter extends OncePerRequestFilter {
 
         @Override
-        protected void doFilterInternal(
-            HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain
-        ) throws ServletException, IOException {
-            if ("true".equals(request.getHeader("throw-servlet-filter-exception"))) {
-                throw ApiException
-                    .newBuilder()
-                    .withApiErrors(SampleProjectApiError.ERROR_THROWN_IN_SERVLET_FILTER_OUTSIDE_SPRING)
-                    .withExceptionMessage("Exception thrown from Servlet Filter outside Spring")
-                    .build();
-            }
-            filterChain.doFilter(request, response);
+        protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
-
     }
 }

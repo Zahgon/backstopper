@@ -3,13 +3,11 @@ package com.nike.backstopper.service;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Set;
-
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ValidationException;
 import jakarta.validation.Validator;
 import jakarta.validation.executable.ExecutableValidator;
 import jakarta.validation.metadata.BeanDescriptor;
-
 import static java.util.Collections.emptySet;
 
 /**
@@ -26,60 +24,51 @@ public class NoOpJsr303Validator implements Validator, ExecutableValidator {
 
     @Override
     public <T> Set<ConstraintViolation<T>> validate(T object, Class<?>... groups) {
-        return emptySet();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public <T> Set<ConstraintViolation<T>> validateProperty(T object, String propertyName, Class<?>... groups) {
-        return emptySet();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
-    public <T> Set<ConstraintViolation<T>> validateValue(Class<T> beanType, String propertyName, Object value,
-                                                         Class<?>... groups) {
-        return emptySet();
+    public <T> Set<ConstraintViolation<T>> validateValue(Class<T> beanType, String propertyName, Object value, Class<?>... groups) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public BeanDescriptor getConstraintsForClass(Class<?> clazz) {
-        throw new ValidationException(this.getClass().getName() + " does not implement getConstraintsForClass()");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public <T> T unwrap(Class<T> type) {
-        throw new ValidationException(this.getClass().getName() + " does not implement unwrap()");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public ExecutableValidator forExecutables() {
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
-    public <T> Set<ConstraintViolation<T>> validateParameters(
-        T object, Method method, Object[] parameterValues, Class<?>... groups
-    ) {
-        return emptySet();
+    public <T> Set<ConstraintViolation<T>> validateParameters(T object, Method method, Object[] parameterValues, Class<?>... groups) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
-    public <T> Set<ConstraintViolation<T>> validateReturnValue(
-        T object, Method method, Object returnValue, Class<?>... groups
-    ) {
-        return emptySet();
+    public <T> Set<ConstraintViolation<T>> validateReturnValue(T object, Method method, Object returnValue, Class<?>... groups) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
-    public <T> Set<ConstraintViolation<T>> validateConstructorParameters(
-        Constructor<? extends T> constructor, Object[] parameterValues, Class<?>... groups
-    ) {
-        return emptySet();
+    public <T> Set<ConstraintViolation<T>> validateConstructorParameters(Constructor<? extends T> constructor, Object[] parameterValues, Class<?>... groups) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
-    public <T> Set<ConstraintViolation<T>> validateConstructorReturnValue(
-        Constructor<? extends T> constructor, T createdObject, Class<?>... groups
-    ) {
-        return emptySet();
+    public <T> Set<ConstraintViolation<T>> validateConstructorReturnValue(Constructor<? extends T> constructor, T createdObject, Class<?>... groups) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

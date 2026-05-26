@@ -1,12 +1,10 @@
 package com.nike.backstopper.service;
 
 import com.nike.backstopper.exception.ClientDataValidationError;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
@@ -39,7 +37,6 @@ public class ClientDataValidationService {
         if (validator == null) {
             throw new IllegalArgumentException("Validator cannot be null");
         }
-
         this.validator = validator;
     }
 
@@ -50,7 +47,7 @@ public class ClientDataValidationService {
      * without doing anything (i.e. it is safe to pass in null).
      */
     public void validateObjectsFailFast(Object... validateTheseObjects) {
-        validateObjectsWithGroupsFailFast((Class<?>[]) null, validateTheseObjects);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -67,7 +64,7 @@ public class ClientDataValidationService {
      * in a class that extends {@link jakarta.validation.groups.Default}.
      */
     public void validateObjectsWithGroupFailFast(Class<?> group, Object... validateTheseObjects) {
-        validateObjectsWithGroupsFailFast(new Class<?>[]{group}, validateTheseObjects);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -83,10 +80,7 @@ public class ClientDataValidationService {
      * {@link jakarta.validation.groups.Default} or must extend it.
      */
     public void validateObjectsWithGroupsFailFast(Collection<Class<?>> groups, Object... validateTheseObjects) {
-        Class<?>[] groupsArray =
-            (groups == null || groups.isEmpty()) ? null : groups.toArray(new Class<?>[0]);
-
-        validateObjectsWithGroupsFailFast(groupsArray, validateTheseObjects);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -102,31 +96,6 @@ public class ClientDataValidationService {
      * {@link jakarta.validation.groups.Default} or must extend it.
      */
     public void validateObjectsWithGroupsFailFast(Class<?>[] groups, Object... validateTheseObjects) {
-        if (validateTheseObjects == null || validateTheseObjects.length == 0) {
-            return;
-        }
-
-        // Check the object for JSR 303 validation errors.
-        List<ConstraintViolation<Object>> violations = new ArrayList<>();
-        List<Object> objectsThatFailedValidation = new ArrayList<>();
-        for (Object obj : validateTheseObjects) {
-            if (obj != null) {
-                Set<ConstraintViolation<Object>> objViolations =
-                    (groups == null) ? validator.validate(obj) : validator.validate(obj, groups);
-                if (!objViolations.isEmpty()) {
-                    violations.addAll(objViolations);
-                    objectsThatFailedValidation.add(obj);
-                }
-            }
-        }
-
-        // If it came back clean we're done - just return.
-        if (violations.isEmpty()) {
-            return;
-        }
-
-        // If we reach here then it didn't come back clean. We have at least one validation error.
-        throw new ClientDataValidationError(objectsThatFailedValidation, violations, groups);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

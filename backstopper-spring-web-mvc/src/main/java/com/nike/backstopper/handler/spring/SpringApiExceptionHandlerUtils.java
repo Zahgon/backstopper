@@ -4,14 +4,10 @@ import com.nike.backstopper.apierror.ApiError;
 import com.nike.backstopper.handler.RequestInfoForLogging;
 import com.nike.backstopper.model.DefaultErrorContractDTO;
 import com.nike.backstopper.model.util.JsonUtilWithDefaultErrorContractDTOSupport;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
-
 import java.util.Collection;
-
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 
@@ -40,18 +36,8 @@ public class SpringApiExceptionHandlerUtils {
      * make sure the DefaultErrorContractDTO is FULLY populated before calling this method! Changes to the
      * DefaultErrorContractDTO after calling this method may not be reflected in the returned ModelAndView).
      */
-    public ModelAndView generateModelAndViewForErrorResponse(
-        DefaultErrorContractDTO errorContractDTO, int httpStatusCode, Collection<ApiError> rawFilteredApiErrors,
-        Throwable originalException, RequestInfoForLogging request
-    ) {
-        MappingJackson2JsonView view = new MappingJackson2JsonView();
-        view.setExtractValueFromSingleKeyModel(true);
-        view.setObjectMapper(getObjectMapperForJsonErrorResponseSerialization(
-            errorContractDTO, httpStatusCode, rawFilteredApiErrors, originalException, request
-        ));
-        ModelAndView mv = new ModelAndView(view);
-        mv.addObject(errorContractDTO);
-        return mv;
+    public ModelAndView generateModelAndViewForErrorResponse(DefaultErrorContractDTO errorContractDTO, int httpStatusCode, Collection<ApiError> rawFilteredApiErrors, Throwable originalException, RequestInfoForLogging request) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -61,10 +47,7 @@ public class SpringApiExceptionHandlerUtils {
      * JsonUtilWithDefaultErrorContractDTOSupport#DEFAULT_SMART_MAPPER}.
      */
     @SuppressWarnings("unused")
-    protected ObjectMapper getObjectMapperForJsonErrorResponseSerialization(
-        DefaultErrorContractDTO errorContractDTO, int httpStatusCode, Collection<ApiError> rawFilteredApiErrors,
-        Throwable originalException, RequestInfoForLogging request
-    ) {
-        return JsonUtilWithDefaultErrorContractDTOSupport.DEFAULT_SMART_MAPPER;
+    protected ObjectMapper getObjectMapperForJsonErrorResponseSerialization(DefaultErrorContractDTO errorContractDTO, int httpStatusCode, Collection<ApiError> rawFilteredApiErrors, Throwable originalException, RequestInfoForLogging request) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

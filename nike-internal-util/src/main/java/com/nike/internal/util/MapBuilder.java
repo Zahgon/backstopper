@@ -15,32 +15,28 @@ public class MapBuilder<K, V> {
 
     private final Map<K, V> map = new HashMap<>();
 
-    private MapBuilder() { /* private to enforce builder pattern */ }
+    private MapBuilder() {
+        /* private to enforce builder pattern */
+    }
 
     public static <K, V> MapBuilder<K, V> builder() {
-        return new MapBuilder<>();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public static <K, V> MapBuilder<K, V> builder(K firstKey, V firstVal) {
-        MapBuilder<K, V> builder = new MapBuilder<>();
-        builder.put(firstKey, firstVal);
-        return builder;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public MapBuilder<K, V> put(K key, V value) {
-        map.put(key, value);
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public MapBuilder<K, V> putAll(Map<K, V> otherMap) {
-        for (Map.Entry<K, V> entry : otherMap.entrySet()) {
-            put(entry.getKey(), entry.getValue());
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public Map<K, V> build() {
-        return new HashMap<>(map);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

@@ -1,7 +1,6 @@
 package com.nike.backstopper.springboot3webmvcsample;
 
 import com.nike.backstopper.springboot3webmvcsample.config.SampleSpringboot3WebMvcSpringConfig;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
@@ -14,7 +13,8 @@ import org.springframework.context.annotation.Import;
 @SpringBootApplication
 @Import(SampleSpringboot3WebMvcSpringConfig.class)
 public class Main {
+
     public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

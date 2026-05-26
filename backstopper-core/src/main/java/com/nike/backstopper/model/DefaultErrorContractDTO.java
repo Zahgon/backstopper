@@ -1,7 +1,6 @@
 package com.nike.backstopper.model;
 
 import com.nike.backstopper.apierror.ApiError;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,6 +29,7 @@ public class DefaultErrorContractDTO implements Serializable {
      * additional work by the converter (e.g. Jackson for JSON, or any other serializer that happens to be used).
      */
     public final String error_id;
+
     /**
      * The list of {@link DefaultErrorDTO}s associated with this error response/contract. This list is immutable - an
      * exception will be thrown if you try to modify this list.
@@ -70,8 +70,7 @@ public class DefaultErrorContractDTO implements Serializable {
      * {@link DefaultErrorContractDTO#DefaultErrorContractDTO(String, Collection)}, and this class wouldn't be able to
      * compile.
      */
-    public DefaultErrorContractDTO(String error_id, Collection<DefaultErrorDTO> errorsToCopy,
-                                   @SuppressWarnings("unused") Void passInNullForThisArg) {
+    public DefaultErrorContractDTO(String error_id, Collection<DefaultErrorDTO> errorsToCopy, @SuppressWarnings("unused") Void passInNullForThisArg) {
         this.error_id = error_id;
         List<DefaultErrorDTO> errorsList = new ArrayList<>();
         if (errorsToCopy != null) {
@@ -85,16 +84,6 @@ public class DefaultErrorContractDTO implements Serializable {
      */
     @SuppressWarnings("WeakerAccess")
     protected static List<DefaultErrorDTO> convertApiErrorsToErrorModelObjects(Collection<ApiError> apiErrors) {
-        if (apiErrors == null) {
-            return null;
-        }
-
-        List<DefaultErrorDTO> errorsList = new ArrayList<>();
-        for (ApiError apiError : apiErrors) {
-            errorsList.add(new DefaultErrorDTO(apiError));
-        }
-
-        return errorsList;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

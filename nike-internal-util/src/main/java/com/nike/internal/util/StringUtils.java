@@ -29,7 +29,7 @@ public class StringUtils {
      *          items or the delimiter.
      */
     public static String join(Collection<?> iterable, String delimiter) {
-        return join(iterable, delimiter, null, null);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -43,35 +43,7 @@ public class StringUtils {
      *          items or the delimiter.
      */
     public static String join(Collection<?> iterable, String delimiter, String prefix, String suffix) {
-        if (iterable == null)
-            throw new IllegalArgumentException("iterable cannot be null");
-
-        if (delimiter == null)
-            throw new IllegalArgumentException("delimiter cannot be null");
-
-        if (prefix == null)
-            prefix = "";
-
-        if (suffix == null)
-            suffix = "";
-
-        StringBuilder sb = new StringBuilder();
-        // Add the prefix
-        sb.append(prefix);
-
-        // Add each item, with the delimiter between items.
-        boolean firstItem = true;
-        for (Object obj : iterable) {
-            if (!firstItem)
-                sb.append(delimiter);
-            sb.append(obj);
-            firstItem = false;
-        }
-
-        // Add the suffix
-        sb.append(suffix);
-
-        return sb.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // isEmpty, isNotEmpty, isBlank, and isNotBlank are copied directly from Apache Commons Lang3 (version 3.4),
@@ -96,7 +68,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from isEmpty(String) to isEmpty(CharSequence)
      */
     public static boolean isEmpty(final CharSequence cs) {
-        return cs == null || cs.isEmpty();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -115,7 +87,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from isNotEmpty(String) to isNotEmpty(CharSequence)
      */
     public static boolean isNotEmpty(final CharSequence cs) {
-        return !isEmpty(cs);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -135,16 +107,7 @@ public class StringUtils {
      * @since 3.0 Changed signature from isBlank(String) to isBlank(CharSequence)
      */
     public static boolean isBlank(final CharSequence cs) {
-        int strLen;
-        if (cs == null || (strLen = cs.length()) == 0) {
-            return true;
-        }
-        for (int i = 0; i < strLen; i++) {
-            if (!Character.isWhitespace(cs.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -165,6 +128,6 @@ public class StringUtils {
      * @since 3.0 Changed signature from isNotBlank(String) to isNotBlank(CharSequence)
      */
     public static boolean isNotBlank(final CharSequence cs) {
-        return !isBlank(cs);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

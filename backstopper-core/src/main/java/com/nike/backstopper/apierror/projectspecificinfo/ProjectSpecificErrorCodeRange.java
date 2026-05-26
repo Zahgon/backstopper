@@ -62,14 +62,15 @@ public interface ProjectSpecificErrorCodeRange {
      * returns are *not* unique across projects.
      */
     ProjectSpecificErrorCodeRange ALLOW_ALL_ERROR_CODES = new ProjectSpecificErrorCodeRange() {
+
         @Override
         public boolean isInRange(ApiError error) {
-            return true;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public String getName() {
-            return "ALLOW_ALL_ERROR_CODES";
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     };
 
@@ -83,5 +84,4 @@ public interface ProjectSpecificErrorCodeRange {
      *          culprit when out-of-range type errors occur.
      */
     String getName();
-
 }

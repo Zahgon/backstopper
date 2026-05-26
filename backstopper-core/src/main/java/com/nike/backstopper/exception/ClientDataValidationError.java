@@ -1,7 +1,6 @@
 package com.nike.backstopper.exception;
 
 import java.util.List;
-
 import jakarta.validation.ConstraintViolation;
 
 /**
@@ -23,12 +22,14 @@ import jakarta.validation.ConstraintViolation;
  * @author Nic Munroe
  */
 public class ClientDataValidationError extends RuntimeException {
+
     private final List<Object> objectsThatFailedValidation;
+
     private final List<ConstraintViolation<Object>> violations;
+
     private final Class<?>[] validationGroups;
 
-    public ClientDataValidationError(List<Object> objectsThatFailedValidation,
-                                     List<ConstraintViolation<Object>> violations, Class<?>[] validationGroups) {
+    public ClientDataValidationError(List<Object> objectsThatFailedValidation, List<ConstraintViolation<Object>> violations, Class<?>[] validationGroups) {
         this.objectsThatFailedValidation = objectsThatFailedValidation;
         this.violations = violations;
         this.validationGroups = validationGroups;
@@ -39,14 +40,14 @@ public class ClientDataValidationError extends RuntimeException {
      *          {@link #getViolations()}.
      */
     public List<Object> getObjectsThatFailedValidation() {
-        return objectsThatFailedValidation;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * @return The list of constraint violations that were detected for {@link #getObjectsThatFailedValidation()}.
      */
     public List<ConstraintViolation<Object>> getViolations() {
-        return violations;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -56,6 +57,6 @@ public class ClientDataValidationError extends RuntimeException {
      *          method).
      */
     public Class<?>[] getValidationGroups() {
-        return validationGroups;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

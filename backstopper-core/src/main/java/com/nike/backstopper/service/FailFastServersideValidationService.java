@@ -1,9 +1,7 @@
 package com.nike.backstopper.service;
 
 import com.nike.backstopper.exception.ServersideValidationError;
-
 import java.util.Set;
-
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
@@ -36,7 +34,6 @@ public class FailFastServersideValidationService {
         if (validator == null) {
             throw new IllegalArgumentException("Validator cannot be null");
         }
-
         this.validator = validator;
     }
 
@@ -47,15 +44,6 @@ public class FailFastServersideValidationService {
      */
     @SuppressWarnings("WeakerAccess")
     public void validateObjectFailFast(Object validateMe) {
-        // Check the object for JSR 303 validation errors.
-        Set<ConstraintViolation<Object>> violations = validator.validate(validateMe);
-
-        // If it came back clean we're done - just return.
-        if (violations.isEmpty()) {
-            return;
-        }
-
-        // If we reach here then it didn't come back clean. We have at least one validation error.
-        throw new ServersideValidationError(validateMe, violations);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

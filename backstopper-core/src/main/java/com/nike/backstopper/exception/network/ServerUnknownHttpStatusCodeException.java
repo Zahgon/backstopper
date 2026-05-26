@@ -14,14 +14,16 @@ import java.util.Map;
  */
 @SuppressWarnings("WeakerAccess")
 public class ServerUnknownHttpStatusCodeException extends NetworkExceptionBase {
+
     private final Throwable details;
+
     private final Integer responseStatusCode;
+
     private final Map<String, List<String>> responseHeaders;
+
     private final String rawResponseBody;
 
-    public ServerUnknownHttpStatusCodeException(Throwable cause, String connectionType, Throwable details,
-                                                Integer responseStatusCode, Map<String, List<String>> responseHeaders,
-                                                String rawResponseBody) {
+    public ServerUnknownHttpStatusCodeException(Throwable cause, String connectionType, Throwable details, Integer responseStatusCode, Map<String, List<String>> responseHeaders, String rawResponseBody) {
         super(cause, connectionType);
         this.details = details;
         this.responseStatusCode = responseStatusCode;
@@ -33,21 +35,21 @@ public class ServerUnknownHttpStatusCodeException extends NetworkExceptionBase {
      * @return The server exception that triggered this instance, or null if this info was not provided.
      */
     public Throwable getDetails() {
-        return details;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * @return The HTTP status code associated with the weird server response, or null if this info was not provided.
      */
     public Integer getResponseStatusCode() {
-        return responseStatusCode;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * @return The headers associated with the weird server response, or null if this info was not provided.
      */
     public Map<String, List<String>> getResponseHeaders() {
-        return responseHeaders;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -55,6 +57,6 @@ public class ServerUnknownHttpStatusCodeException extends NetworkExceptionBase {
      * not provided.
      */
     public String getRawResponseBody() {
-        return rawResponseBody;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

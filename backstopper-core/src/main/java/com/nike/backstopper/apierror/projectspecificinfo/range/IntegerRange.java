@@ -13,6 +13,7 @@ public class IntegerRange {
      * The lower bound for this range (inclusive).
      */
     public final int lowerRangeInclusive;
+
     /**
      * The upper bound for this range (inclusive).
      */
@@ -21,12 +22,8 @@ public class IntegerRange {
     @SuppressWarnings("WeakerAccess")
     protected IntegerRange(int lowerRangeInclusive, int upperRangeInclusive) {
         if (upperRangeInclusive < lowerRangeInclusive) {
-            throw new IllegalArgumentException(
-                "upper range value (" + upperRangeInclusive + ") cannot be less than lower range value ("
-                + lowerRangeInclusive + ")"
-            );
+            throw new IllegalArgumentException("upper range value (" + upperRangeInclusive + ") cannot be less than lower range value (" + lowerRangeInclusive + ")");
         }
-
         this.lowerRangeInclusive = lowerRangeInclusive;
         this.upperRangeInclusive = upperRangeInclusive;
     }
@@ -37,7 +34,7 @@ public class IntegerRange {
      * @return A new instance with the given bounds.
      */
     public static IntegerRange of(int lowerRangeInclusive, int upperRangeInclusive) {
-        return new IntegerRange(lowerRangeInclusive, upperRangeInclusive);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -45,19 +42,13 @@ public class IntegerRange {
      * instance, false otherwise.
      */
     public boolean isInRange(String valueString) {
-        try {
-            int valueAsInt = Integer.parseInt(valueString);
-            return isInRange(valueAsInt);
-        } catch (NumberFormatException ex) {
-            // Not an integer, so can't possibly be in range.
-            return false;
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * @return true if the given {@code value} is within the range bounds of this instance, false otherwise.
      */
     public boolean isInRange(int value) {
-        return (value >= lowerRangeInclusive && value <= upperRangeInclusive);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

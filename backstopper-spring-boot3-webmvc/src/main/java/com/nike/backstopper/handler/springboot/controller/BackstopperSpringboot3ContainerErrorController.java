@@ -2,13 +2,11 @@ package com.nike.backstopper.handler.springboot.controller;
 
 import com.nike.backstopper.apierror.projectspecificinfo.ProjectApiErrors;
 import com.nike.backstopper.servletapi.UnhandledServletContainerErrorHelper;
-
 import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import jakarta.servlet.ServletRequest;
 
 /**
@@ -27,28 +25,25 @@ import jakarta.servlet.ServletRequest;
 @SuppressWarnings("WeakerAccess")
 public class BackstopperSpringboot3ContainerErrorController implements ErrorController {
 
-    protected final @NotNull ProjectApiErrors projectApiErrors;
-    protected final @NotNull UnhandledServletContainerErrorHelper unhandledServletContainerErrorHelper;
+    @NotNull
+    protected final ProjectApiErrors projectApiErrors;
+
+    @NotNull
+    protected final UnhandledServletContainerErrorHelper unhandledServletContainerErrorHelper;
+
     protected final String errorPath;
 
     @SuppressWarnings("ConstantConditions")
-    public BackstopperSpringboot3ContainerErrorController(
-        @NotNull ProjectApiErrors projectApiErrors,
-        @NotNull UnhandledServletContainerErrorHelper unhandledServletContainerErrorHelper,
-        @NotNull ServerProperties serverProperties
-    ) {
+    public BackstopperSpringboot3ContainerErrorController(@NotNull ProjectApiErrors projectApiErrors, @NotNull UnhandledServletContainerErrorHelper unhandledServletContainerErrorHelper, @NotNull ServerProperties serverProperties) {
         if (projectApiErrors == null) {
             throw new NullPointerException("ProjectApiErrors cannot be null.");
         }
-
         if (unhandledServletContainerErrorHelper == null) {
             throw new NullPointerException("UnhandledServletContainerErrorHelper cannot be null.");
         }
-
         if (serverProperties == null) {
             throw new NullPointerException("ServerProperties cannot be null.");
         }
-
         this.projectApiErrors = projectApiErrors;
         this.unhandledServletContainerErrorHelper = unhandledServletContainerErrorHelper;
         this.errorPath = serverProperties.getError().getPath();
@@ -56,11 +51,10 @@ public class BackstopperSpringboot3ContainerErrorController implements ErrorCont
 
     @RequestMapping
     public void error(ServletRequest request) throws Throwable {
-        throw unhandledServletContainerErrorHelper.extractOrGenerateErrorForRequest(request, projectApiErrors);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public String getErrorPath() {
-        return errorPath;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

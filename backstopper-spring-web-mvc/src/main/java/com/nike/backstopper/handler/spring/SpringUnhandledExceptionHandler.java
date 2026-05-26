@@ -7,18 +7,15 @@ import com.nike.backstopper.handler.ErrorResponseInfo;
 import com.nike.backstopper.handler.RequestInfoForLogging;
 import com.nike.backstopper.handler.UnhandledExceptionHandlerServletApiBase;
 import com.nike.backstopper.model.DefaultErrorContractDTO;
-
 import org.jetbrains.annotations.NotNull;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
@@ -37,8 +34,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @SuppressWarnings("WeakerAccess")
 @Named
 @Singleton
-public class SpringUnhandledExceptionHandler extends UnhandledExceptionHandlerServletApiBase<ModelAndView>
-    implements HandlerExceptionResolver, Ordered {
+public class SpringUnhandledExceptionHandler extends UnhandledExceptionHandlerServletApiBase<ModelAndView> implements HandlerExceptionResolver, Ordered {
 
     /**
      * The sort order for where this handler goes in the spring exception handler chain. We default to -1 so this gets
@@ -47,13 +43,13 @@ public class SpringUnhandledExceptionHandler extends UnhandledExceptionHandlerSe
     private int order = -1;
 
     protected final SpringApiExceptionHandlerUtils springUtils;
+
     protected final Set<ApiError> singletonGenericServiceError;
+
     protected final int genericServiceErrorHttpStatusCode;
 
     @Inject
-    public SpringUnhandledExceptionHandler(ProjectApiErrors projectApiErrors,
-                                           ApiExceptionHandlerUtils generalUtils,
-                                           SpringApiExceptionHandlerUtils springUtils) {
+    public SpringUnhandledExceptionHandler(ProjectApiErrors projectApiErrors, ApiExceptionHandlerUtils generalUtils, SpringApiExceptionHandlerUtils springUtils) {
         super(projectApiErrors, generalUtils);
         this.springUtils = springUtils;
         this.singletonGenericServiceError = Collections.singleton(projectApiErrors.getGenericServiceError());
@@ -61,39 +57,18 @@ public class SpringUnhandledExceptionHandler extends UnhandledExceptionHandlerSe
     }
 
     @Override
-    protected ModelAndView prepareFrameworkRepresentation(DefaultErrorContractDTO errorContractDTO, int httpStatusCode,
-                                                          Collection<ApiError> rawFilteredApiErrors,
-                                                          Throwable originalException, RequestInfoForLogging request) {
-        return springUtils.generateModelAndViewForErrorResponse(
-            errorContractDTO, httpStatusCode, rawFilteredApiErrors, originalException, request
-        );
+    protected ModelAndView prepareFrameworkRepresentation(DefaultErrorContractDTO errorContractDTO, int httpStatusCode, Collection<ApiError> rawFilteredApiErrors, Throwable originalException, RequestInfoForLogging request) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
-    protected ErrorResponseInfo<ModelAndView> generateLastDitchFallbackErrorResponseInfo(
-        Throwable ex, RequestInfoForLogging request, String errorUid,
-        Map<String, List<String>> headersForResponseWithErrorUid
-    ) {
-        DefaultErrorContractDTO errorContract = new DefaultErrorContractDTO(errorUid, singletonGenericServiceError);
-        return new ErrorResponseInfo<>(
-            genericServiceErrorHttpStatusCode,
-            // We can't trust the springUtils in this class since it could be causing the problem.
-            //      Use the DEFAULT_IMPL instead.
-            SpringApiExceptionHandlerUtils.DEFAULT_IMPL.generateModelAndViewForErrorResponse(
-                errorContract, genericServiceErrorHttpStatusCode, singletonGenericServiceError, ex, request
-            ),
-            headersForResponseWithErrorUid
-        );
+    protected ErrorResponseInfo<ModelAndView> generateLastDitchFallbackErrorResponseInfo(Throwable ex, RequestInfoForLogging request, String errorUid, Map<String, List<String>> headersForResponseWithErrorUid) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
-    public ModelAndView resolveException(
-        @NotNull HttpServletRequest request,
-        @NotNull HttpServletResponse response,
-        Object handler,
-        @NotNull Exception ex
-    ) {
-        return handleException(ex, request, response).frameworkRepresentationObj;
+    public ModelAndView resolveException(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, Object handler, @NotNull Exception ex) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -101,7 +76,7 @@ public class SpringUnhandledExceptionHandler extends UnhandledExceptionHandlerSe
      */
     @Override
     public int getOrder() {
-        return order;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -109,7 +84,6 @@ public class SpringUnhandledExceptionHandler extends UnhandledExceptionHandlerSe
      */
     @SuppressWarnings("unused")
     public void setOrder(int order) {
-        this.order = order;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

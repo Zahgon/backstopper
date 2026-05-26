@@ -2,7 +2,6 @@ package com.nike.backstopper.apierror.projectspecificinfo;
 
 import com.nike.backstopper.apierror.ApiError;
 import com.nike.backstopper.apierror.projectspecificinfo.range.IntegerRange;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -16,6 +15,7 @@ import java.util.List;
 public class ProjectSpecificErrorCodeRangeIntegerImpl implements ProjectSpecificErrorCodeRange {
 
     protected final String name;
+
     protected final List<IntegerRange> ranges;
 
     /**
@@ -50,16 +50,11 @@ public class ProjectSpecificErrorCodeRangeIntegerImpl implements ProjectSpecific
      */
     @Override
     public boolean isInRange(ApiError error) {
-        for (IntegerRange range : ranges) {
-            if (range.isInRange(error.getErrorCode()))
-                return true;
-        }
-
-        return false;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String getName() {
-        return name;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

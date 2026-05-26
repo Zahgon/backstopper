@@ -6,7 +6,6 @@ import com.nike.backstopper.handler.spring.webflux.config.BackstopperSpringWebFl
 import com.nike.backstopper.springboot3webfluxsample.controller.SampleController;
 import com.nike.backstopper.springboot3webfluxsample.error.SampleProjectApiError;
 import com.nike.backstopper.springboot3webfluxsample.error.SampleProjectApiErrorsImpl;
-
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,11 +22,9 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
-
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import reactor.core.publisher.Mono;
-
 import static com.nike.backstopper.springboot3webfluxsample.controller.SampleController.SAMPLE_FROM_ROUTER_FUNCTION_PATH;
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 
@@ -55,7 +52,7 @@ public class SampleSpringboot3WebFluxSpringConfig {
      */
     @Bean
     public ProjectApiErrors getProjectApiErrors() {
-        return new SampleProjectApiErrorsImpl();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -69,8 +66,7 @@ public class SampleSpringboot3WebFluxSpringConfig {
      */
     @Bean
     public Validator getJsr303Validator() {
-        //noinspection resource
-        return Validation.buildDefaultValidatorFactory().getValidator();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // ============= STUFF THAT EXERCISES EXCEPTION USE CASES BELOW - NOT FOR A REAL APP! =============
@@ -81,7 +77,7 @@ public class SampleSpringboot3WebFluxSpringConfig {
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public WebFilter explodingWebFilter() {
-        return new ExplodingWebFilter();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -91,71 +87,24 @@ public class SampleSpringboot3WebFluxSpringConfig {
      */
     @Bean
     public RouterFunction<ServerResponse> sampleRouterFunction(SampleController sampleController) {
-        return RouterFunctions
-            .route(GET(SAMPLE_FROM_ROUTER_FUNCTION_PATH), sampleController::getSampleModelRouterFunction)
-            .filter(new ExplodingHandlerFilterFunction());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public static class ExplodingWebFilter implements WebFilter {
-        
+
         @Override
-        public @NotNull Mono<Void> filter(
-            ServerWebExchange exchange, @NotNull WebFilterChain chain
-        ) {
-            HttpHeaders httpHeaders = exchange.getRequest().getHeaders();
-            
-            if ("true".equals(httpHeaders.getFirst("throw-web-filter-exception"))) {
-                throw ApiException
-                    .newBuilder()
-                    .withApiErrors(SampleProjectApiError.ERROR_THROWN_IN_WEB_FILTER)
-                    .withExceptionMessage("Exception thrown from WebFilter")
-                    .build();
-            }
-
-            if ("true".equals(httpHeaders.getFirst("return-exception-in-web-filter-mono"))) {
-                return Mono.error(
-                    ApiException
-                        .newBuilder()
-                        .withApiErrors(SampleProjectApiError.ERROR_RETURNED_IN_WEB_FILTER_MONO)
-                        .withExceptionMessage("Exception returned from WebFilter Mono")
-                        .build()
-                );
-            }
-
-            return chain.filter(exchange);
+        @NotNull
+        public Mono<Void> filter(ServerWebExchange exchange, @NotNull WebFilterChain chain) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
-    public static class ExplodingHandlerFilterFunction
-        implements HandlerFilterFunction<ServerResponse, ServerResponse> {
+    public static class ExplodingHandlerFilterFunction implements HandlerFilterFunction<ServerResponse, ServerResponse> {
 
         @Override
-        public @NotNull Mono<ServerResponse> filter(
-            ServerRequest serverRequest,
-            @NotNull HandlerFunction<ServerResponse> handlerFunction
-        ) {
-            HttpHeaders httpHeaders = serverRequest.headers().asHttpHeaders();
-
-            if ("true".equals(httpHeaders.getFirst("throw-handler-filter-function-exception"))) {
-                throw ApiException
-                    .newBuilder()
-                    .withApiErrors(SampleProjectApiError.ERROR_THROWN_IN_HANDLER_FILTER_FUNCTION)
-                    .withExceptionMessage("Exception thrown from HandlerFilterFunction")
-                    .build();
-            }
-
-            if ("true".equals(httpHeaders.getFirst("return-exception-in-handler-filter-function-mono"))) {
-                return Mono.error(
-                    ApiException
-                        .newBuilder()
-                        .withApiErrors(SampleProjectApiError.ERROR_RETURNED_IN_HANDLER_FILTER_FUNCTION_MONO)
-                        .withExceptionMessage("Exception returned from HandlerFilterFunction Mono")
-                        .build()
-                );
-            }
-
-            return handlerFunction.handle(serverRequest);
+        @NotNull
+        public Mono<ServerResponse> filter(ServerRequest serverRequest, @NotNull HandlerFunction<ServerResponse> handlerFunction) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
-
 }

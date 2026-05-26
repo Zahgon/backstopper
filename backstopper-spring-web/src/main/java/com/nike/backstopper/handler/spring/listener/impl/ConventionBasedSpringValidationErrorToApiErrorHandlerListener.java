@@ -6,16 +6,13 @@ import com.nike.backstopper.apierror.SortedApiErrorSet;
 import com.nike.backstopper.apierror.projectspecificinfo.ProjectApiErrors;
 import com.nike.backstopper.handler.listener.ApiExceptionHandlerListener;
 import com.nike.backstopper.handler.listener.ApiExceptionHandlerListenerResult;
-
 import org.jetbrains.annotations.NotNull;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
@@ -39,32 +36,17 @@ public class ConventionBasedSpringValidationErrorToApiErrorHandlerListener imple
      *                         ApiError}s. Cannot be null.
      */
     @Inject
-    public ConventionBasedSpringValidationErrorToApiErrorHandlerListener(
-        @NotNull ProjectApiErrors projectApiErrors
-    ) {
+    public ConventionBasedSpringValidationErrorToApiErrorHandlerListener(@NotNull ProjectApiErrors projectApiErrors) {
         //noinspection ConstantConditions
         if (projectApiErrors == null) {
             throw new IllegalArgumentException("ProjectApiErrors cannot be null");
         }
-
         this.projectApiErrors = projectApiErrors;
     }
 
     @Override
     public ApiExceptionHandlerListenerResult shouldHandleException(Throwable ex) {
-
-        if (ex instanceof Errors errEx) {
-            List<ObjectError> errList = errEx.getAllErrors();
-            //noinspection ConstantValue
-            if (errList != null && !errList.isEmpty()) {
-                return ApiExceptionHandlerListenerResult.handleResponse(
-                    convertSpringErrorsToApiErrors(errList)
-                );
-            }
-        }
-
-        // If we reach here then we didn't handle the exception.
-        return ApiExceptionHandlerListenerResult.ignoreResponse();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -72,12 +54,7 @@ public class ConventionBasedSpringValidationErrorToApiErrorHandlerListener imple
      * #convertSpringErrorToApiError(ObjectError)} on each one.
      */
     protected SortedApiErrorSet convertSpringErrorsToApiErrors(List<ObjectError> springErrors) {
-        SortedApiErrorSet apiErrors = new SortedApiErrorSet();
-        for (ObjectError springError : springErrors) {
-            apiErrors.add(convertSpringErrorToApiError(springError));
-        }
-
-        return apiErrors;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -87,18 +64,6 @@ public class ConventionBasedSpringValidationErrorToApiErrorHandlerListener imple
      *          ProjectApiErrors#getGenericServiceError()}.
      */
     protected ApiError convertSpringErrorToApiError(ObjectError springError) {
-        String message = springError.getDefaultMessage();
-        ApiError apiError = projectApiErrors.convertToApiError(message);
-        if (apiError == null)
-            return projectApiErrors.getGenericServiceError();
-
-        if (springError instanceof FieldError) {
-            Map<String, Object> metadata = new HashMap<>();
-            metadata.put("field", ((FieldError)springError).getField());
-            apiError = new ApiErrorWithMetadata(apiError, metadata);
-        }
-
-        return apiError;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

@@ -3,10 +3,8 @@ package com.nike.backstopper.handler;
 import com.nike.backstopper.apierror.projectspecificinfo.ProjectApiErrors;
 import com.nike.backstopper.handler.adapter.RequestInfoForLoggingServletApiAdapter;
 import com.nike.backstopper.handler.listener.ApiExceptionHandlerListener;
-
 import java.util.List;
 import java.util.Map;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -36,9 +34,7 @@ public abstract class ApiExceptionHandlerServletApiBase<T> extends ApiExceptionH
      *                                 can pass in {@link ApiExceptionHandlerUtils#DEFAULT_IMPL} if you don't need
      *                                 custom logic. Cannot be null.
      */
-    public ApiExceptionHandlerServletApiBase(ProjectApiErrors projectApiErrors,
-                                             List<ApiExceptionHandlerListener> apiExceptionHandlerListenerList,
-                                             ApiExceptionHandlerUtils apiExceptionHandlerUtils) {
+    public ApiExceptionHandlerServletApiBase(ProjectApiErrors projectApiErrors, List<ApiExceptionHandlerListener> apiExceptionHandlerListenerList, ApiExceptionHandlerUtils apiExceptionHandlerUtils) {
         super(projectApiErrors, apiExceptionHandlerListenerList, apiExceptionHandlerUtils);
     }
 
@@ -50,28 +46,12 @@ public abstract class ApiExceptionHandlerServletApiBase<T> extends ApiExceptionH
      * and {@link jakarta.servlet.http.HttpServletResponse#setStatus(int)} will be automatically set with {@link
      * ErrorResponseInfo#httpStatusCode} as well.
      */
-    public ErrorResponseInfo<T> maybeHandleException(
-        Throwable ex, HttpServletRequest servletRequest, HttpServletResponse servletResponse
-    ) throws UnexpectedMajorExceptionHandlingError {
-
-        ErrorResponseInfo<T> errorResponseInfo = maybeHandleException(
-            ex, new RequestInfoForLoggingServletApiAdapter(servletRequest)
-        );
-
-        if (errorResponseInfo != null)
-            processServletResponse(errorResponseInfo, servletResponse);
-
-        return errorResponseInfo;
+    public ErrorResponseInfo<T> maybeHandleException(Throwable ex, HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws UnexpectedMajorExceptionHandlingError {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @SuppressWarnings("WeakerAccess")
     protected void processServletResponse(ErrorResponseInfo<T> errorResponseInfo, HttpServletResponse servletResponse) {
-        for (Map.Entry<String, List<String>> header : errorResponseInfo.headersToAddToResponse.entrySet()) {
-            for (String headerValue : header.getValue()) {
-                servletResponse.addHeader(header.getKey(), headerValue);
-            }
-        }
-
-        servletResponse.setStatus(errorResponseInfo.httpStatusCode);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

@@ -5,9 +5,7 @@ import com.nike.backstopper.apierror.projectspecificinfo.ProjectApiErrors;
 import com.nike.backstopper.handler.ApiExceptionHandlerUtils;
 import com.nike.backstopper.handler.listener.ApiExceptionHandlerListenerResult;
 import com.nike.backstopper.handler.spring.listener.impl.OneOffSpringCommonFrameworkExceptionHandlerListener;
-
 import org.jetbrains.annotations.NotNull;
-
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
@@ -21,8 +19,7 @@ import jakarta.inject.Singleton;
 @Named
 @Singleton
 @SuppressWarnings("WeakerAccess")
-public class OneOffSpringWebFluxFrameworkExceptionHandlerListener
-    extends OneOffSpringCommonFrameworkExceptionHandlerListener {
+public class OneOffSpringWebFluxFrameworkExceptionHandlerListener extends OneOffSpringCommonFrameworkExceptionHandlerListener {
 
     /**
      * @param projectApiErrors The {@link ProjectApiErrors} that should be used by this instance when finding {@link
@@ -31,18 +28,13 @@ public class OneOffSpringWebFluxFrameworkExceptionHandlerListener
      * {@link ApiExceptionHandlerUtils#DEFAULT_IMPL} if you don't need custom logic.
      */
     @Inject
-    public OneOffSpringWebFluxFrameworkExceptionHandlerListener(ProjectApiErrors projectApiErrors,
-                                                                ApiExceptionHandlerUtils utils) {
+    public OneOffSpringWebFluxFrameworkExceptionHandlerListener(ProjectApiErrors projectApiErrors, ApiExceptionHandlerUtils utils) {
         super(projectApiErrors, utils);
     }
 
     @Override
-    protected @NotNull ApiExceptionHandlerListenerResult handleSpringMvcOrWebfluxSpecificFrameworkExceptions(
-        @NotNull Throwable ex
-    ) {
-        // If/when we get webflux specific exceptions, they would be handled here.
-
-        // This exception is not handled here.
-        return ApiExceptionHandlerListenerResult.ignoreResponse();
+    @NotNull
+    protected ApiExceptionHandlerListenerResult handleSpringMvcOrWebfluxSpecificFrameworkExceptions(@NotNull Throwable ex) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

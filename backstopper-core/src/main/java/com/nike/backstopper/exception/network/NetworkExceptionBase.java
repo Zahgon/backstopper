@@ -22,6 +22,6 @@ public abstract class NetworkExceptionBase extends RuntimeException {
      *          parse a HTTP Status Code 400 error for useful validation data to return to the end user.
      */
     public String getConnectionType() {
-        return connectionType;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

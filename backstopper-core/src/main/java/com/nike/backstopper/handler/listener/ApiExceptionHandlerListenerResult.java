@@ -4,7 +4,6 @@ import com.nike.backstopper.apierror.ApiError;
 import com.nike.backstopper.apierror.SortedApiErrorSet;
 import com.nike.backstopper.handler.ErrorResponseInfo;
 import com.nike.internal.util.Pair;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,18 +21,21 @@ public class ApiExceptionHandlerListenerResult {
      * True represents an exception that should be handled, false represents an exception that should be ignored.
      */
     public final boolean shouldHandleResponse;
+
     /**
      * The sorted set of {@link ApiError}s that should be represented as part of the exception handling
      * (only if the exception is handled - if it is ignored then this set will not be used). This will never be null
      * (an empty set will be used if there are no errors).
      */
     public final SortedApiErrorSet errors;
+
     /**
      * The list of extra details that should be logged as part of the exception handling (only if the exception is
      * handled - if it is ignored then this list will not be used). This will never be null, and it will always be a
      * mutable list so that more logging info can be added to it.
      */
     public final List<Pair<String, String>> extraDetailsForLogging;
+
     /**
      * The list of extra response headers that should be included with {@link ErrorResponseInfo#headersToAddToResponse}
      * after exception handling. The framework should include these as response headers in the response to the caller.
@@ -59,9 +61,7 @@ public class ApiExceptionHandlerListenerResult {
      *     Any extra response headers that the framework should include in the response to the caller, or null if you
      *     have no extra response headers to send.
      */
-    protected ApiExceptionHandlerListenerResult(boolean shouldHandleResponse, SortedApiErrorSet errors,
-                                                List<Pair<String, String>> extraDetailsForLogging,
-                                                List<Pair<String, List<String>>> extraResponseHeaders) {
+    protected ApiExceptionHandlerListenerResult(boolean shouldHandleResponse, SortedApiErrorSet errors, List<Pair<String, String>> extraDetailsForLogging, List<Pair<String, List<String>>> extraResponseHeaders) {
         this.shouldHandleResponse = shouldHandleResponse;
         if (errors == null)
             errors = new SortedApiErrorSet();
@@ -82,7 +82,7 @@ public class ApiExceptionHandlerListenerResult {
      * set of errors.
      */
     public static ApiExceptionHandlerListenerResult handleResponse(SortedApiErrorSet errors) {
-        return new ApiExceptionHandlerListenerResult(true, errors, null, null);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -94,9 +94,8 @@ public class ApiExceptionHandlerListenerResult {
      * @return An instance with {@link #shouldHandleResponse} set to true, {@link #errors} set to a copy of the given
      * set of errors, and {@link #extraDetailsForLogging} set to a copy of the given list of logging data.
      */
-    public static ApiExceptionHandlerListenerResult handleResponse(SortedApiErrorSet errors,
-                                                                   List<Pair<String, String>> extraDetailsForLogging) {
-        return new ApiExceptionHandlerListenerResult(true, errors, extraDetailsForLogging, null);
+    public static ApiExceptionHandlerListenerResult handleResponse(SortedApiErrorSet errors, List<Pair<String, String>> extraDetailsForLogging) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -110,18 +109,14 @@ public class ApiExceptionHandlerListenerResult {
      * @return An instance with {@link #shouldHandleResponse} set to true, {@link #errors} set to a copy of the given
      * set of errors, and {@link #extraDetailsForLogging} set to a copy of the given list of logging data.
      */
-    public static ApiExceptionHandlerListenerResult handleResponse(
-        SortedApiErrorSet errors,
-        List<Pair<String, String>> extraDetailsForLogging,
-        List<Pair<String, List<String>>> extraResponseHeaders
-    ) {
-        return new ApiExceptionHandlerListenerResult(true, errors, extraDetailsForLogging, extraResponseHeaders);
+    public static ApiExceptionHandlerListenerResult handleResponse(SortedApiErrorSet errors, List<Pair<String, String>> extraDetailsForLogging, List<Pair<String, List<String>>> extraResponseHeaders) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * @return An instance with {@link #shouldHandleResponse} set to false.
      */
     public static ApiExceptionHandlerListenerResult ignoreResponse() {
-        return new ApiExceptionHandlerListenerResult(false, null, null, null);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

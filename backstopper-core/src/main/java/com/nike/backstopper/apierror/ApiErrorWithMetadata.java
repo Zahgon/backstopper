@@ -2,7 +2,6 @@ package com.nike.backstopper.apierror;
 
 import com.nike.backstopper.util.ApiErrorUtil;
 import com.nike.internal.util.Pair;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,36 +18,31 @@ import java.util.Map;
 public class ApiErrorWithMetadata implements ApiError {
 
     protected final ApiError delegate;
+
     protected final Map<String, Object> comboMetadata;
 
     public ApiErrorWithMetadata(ApiError delegate, Map<String, Object> extraMetadata) {
         if (delegate == null)
             throw new IllegalArgumentException("ApiError delegate cannot be null");
-
         this.delegate = delegate;
-
         Map<String, Object> delegateMetadata = delegate.getMetadata();
         if (delegateMetadata == null)
             delegateMetadata = Collections.emptyMap();
-
         if (extraMetadata == null)
             extraMetadata = Collections.emptyMap();
-
         Map<String, Object> unprotectedCombo = new HashMap<>(delegateMetadata);
         unprotectedCombo.putAll(extraMetadata);
-
         this.comboMetadata = Collections.unmodifiableMap(unprotectedCombo);
     }
 
     @SafeVarargs
-    public ApiErrorWithMetadata(ApiError delegate, Pair<String, Object> ... extraMetadata) {
+    public ApiErrorWithMetadata(ApiError delegate, Pair<String, Object>... extraMetadata) {
         this(delegate, pairArrayToMap(extraMetadata));
     }
 
     private static Map<String, Object> pairArrayToMap(Pair<String, Object>[] extraMetadata) {
         if (extraMetadata == null)
             return null;
-
         Map<String, Object> theMap = new HashMap<>();
         for (Pair<String, Object> pair : extraMetadata) {
             if (pair != null)
@@ -59,37 +53,37 @@ public class ApiErrorWithMetadata implements ApiError {
 
     @Override
     public String getName() {
-        return delegate.getName();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String getErrorCode() {
-        return delegate.getErrorCode();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String getMessage() {
-        return delegate.getMessage();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public Map<String, Object> getMetadata() {
-        return this.comboMetadata;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int getHttpStatusCode() {
-        return delegate.getHttpStatusCode();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public boolean equals(Object o) {
-        return ApiErrorUtil.isApiErrorEqual(this, o);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int hashCode() {
-        return ApiErrorUtil.generateApiErrorHashCode(this);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

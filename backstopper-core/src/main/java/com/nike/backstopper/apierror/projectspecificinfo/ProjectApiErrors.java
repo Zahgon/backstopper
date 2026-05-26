@@ -1,10 +1,8 @@
 package com.nike.backstopper.apierror.projectspecificinfo;
 
 import com.nike.backstopper.apierror.ApiError;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,7 +11,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
 import static com.nike.backstopper.apierror.ApiErrorConstants.HTTP_STATUS_CODE_BAD_REQUEST;
 import static com.nike.backstopper.apierror.ApiErrorConstants.HTTP_STATUS_CODE_CONFLICT;
 import static com.nike.backstopper.apierror.ApiErrorConstants.HTTP_STATUS_CODE_FORBIDDEN;
@@ -230,12 +227,7 @@ public abstract class ProjectApiErrors {
      * {@link #determineHighestPriorityHttpStatusCode(Collection)} provides a helper method for taking a list of
      * {@link ApiError}s and returning the appropriate HTTP status code based on a priority list like this one.
      */
-    public static final List<Integer> DEFAULT_STATUS_CODE_PRIORITY_ORDER = Arrays.asList(
-        HTTP_STATUS_CODE_FORBIDDEN, HTTP_STATUS_CODE_UNAUTHORIZED, HTTP_STATUS_CODE_SERVICE_UNAVAILABLE,
-        HTTP_STATUS_CODE_TOO_MANY_REQUESTS, HTTP_STATUS_CODE_INTERNAL_SERVER_ERROR, HTTP_STATUS_CODE_METHOD_NOT_ALLOWED,
-        HTTP_STATUS_CODE_NOT_ACCEPTABLE, HTTP_STATUS_CODE_UNSUPPORTED_MEDIA_TYPE, HTTP_STATUS_CODE_NOT_FOUND,
-        HTTP_STATUS_CODE_CONFLICT,
-        HTTP_STATUS_CODE_BAD_REQUEST);
+    public static final List<Integer> DEFAULT_STATUS_CODE_PRIORITY_ORDER = Arrays.asList(HTTP_STATUS_CODE_FORBIDDEN, HTTP_STATUS_CODE_UNAUTHORIZED, HTTP_STATUS_CODE_SERVICE_UNAVAILABLE, HTTP_STATUS_CODE_TOO_MANY_REQUESTS, HTTP_STATUS_CODE_INTERNAL_SERVER_ERROR, HTTP_STATUS_CODE_METHOD_NOT_ALLOWED, HTTP_STATUS_CODE_NOT_ACCEPTABLE, HTTP_STATUS_CODE_UNSUPPORTED_MEDIA_TYPE, HTTP_STATUS_CODE_NOT_FOUND, HTTP_STATUS_CODE_CONFLICT, HTTP_STATUS_CODE_BAD_REQUEST);
 
     /**
      * Private cache of the full {@link ApiError} list returned by {@link #getProjectApiErrors()} so that we don't have
@@ -256,32 +248,7 @@ public abstract class ProjectApiErrors {
      *          {@link #getCoreApiErrors()} combined with {@link #getProjectSpecificApiErrors()}.
      */
     public List<ApiError> getProjectApiErrors() {
-        if (projectApiErrorsCache == null) {
-            // No cached list yet. Create one.
-            List<ApiError> projectApiErrors = new ArrayList<>();
-
-            // Add all the core errors (if we have any).
-            List<ApiError> coreApiErrors = getCoreApiErrors();
-            if (coreApiErrors != null) {
-                projectApiErrors.addAll(coreApiErrors);
-            }
-
-            // Add all the project-specific errors (if we have any).
-            List<ApiError> projectSpecificApiErrors = getProjectSpecificApiErrors();
-            if (projectSpecificApiErrors != null) {
-                // We have some project-specific errors. Verify that they are within the allowed range for this project.
-                verifyErrorsAreInRange(projectSpecificApiErrors, coreApiErrors);
-                // They are all valid - add them to the final list of project API errors.
-                projectApiErrors.addAll(projectSpecificApiErrors);
-            }
-
-            // Verify that all the special errors are contained in the final full list of project API errors.
-            verifySpecialErrorsAreContainedInApiErrorList(projectApiErrors);
-
-            // Cache the result.
-            projectApiErrorsCache = projectApiErrors;
-        }
-        return projectApiErrorsCache;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -292,7 +259,7 @@ public abstract class ProjectApiErrors {
      *          {@link #getProjectApiErrors()} as the list of {@link ApiError}s to search through.
      */
     public ApiError convertToApiError(String name) {
-        return convertToApiError(name, null);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -302,16 +269,7 @@ public abstract class ProjectApiErrors {
      *          {@link #getProjectApiErrors()} as the list of {@link ApiError}s to search through.
      */
     public ApiError convertToApiError(String name, ApiError fallbackDefaultIfUnconvertible) {
-        if (name == null) {
-            return fallbackDefaultIfUnconvertible;
-        }
-
-        for (ApiError apiError : getProjectApiErrors()) {
-            if (name.equals(apiError.getName())) {
-                return apiError;
-            }
-        }
-        return fallbackDefaultIfUnconvertible;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -324,7 +282,7 @@ public abstract class ProjectApiErrors {
      *          in concrete subclasses if your project needs a different order.
      */
     public List<Integer> getStatusCodePriorityOrder() {
-        return DEFAULT_STATUS_CODE_PRIORITY_ORDER;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -336,42 +294,7 @@ public abstract class ProjectApiErrors {
      *          the possibility of null being returned and have a strategy for picking a winner.
      */
     public Integer determineHighestPriorityHttpStatusCode(Collection<ApiError> apiErrors) {
-        if (apiErrors == null || apiErrors.isEmpty()) {
-            return null;
-        }
-
-        // If we only have one error we don't need to go any further
-        if (apiErrors.size() == 1) {
-            return apiErrors.iterator().next().getHttpStatusCode();
-        }
-
-        // Convert the list of errors to the set of http status codes they represent
-        Set<Integer> validStatusCodePossibilities = new HashSet<>();
-        for (ApiError ae : apiErrors) {
-            validStatusCodePossibilities.add(ae.getHttpStatusCode());
-        }
-
-        // If we only have one HTTP status code we can return it now (no possibility of conflict)
-        if (validStatusCodePossibilities.size() == 1) {
-            return validStatusCodePossibilities.iterator().next();
-        }
-
-        // Run through the priority order. The first one we find that is also contained in validStatusCodePossibilities
-        //      is the one that should be used.
-        for (Integer statusCode : getStatusCodePriorityOrder()) {
-            if (validStatusCodePossibilities.contains(statusCode)) {
-                return statusCode;
-            }
-        }
-
-        // Shouldn't get here in a properly setup project. Log an error and return null.
-        logger.error(
-            "None of the HTTP status codes in the ApiErrors passed to determineHighestPriorityHttpStatusCode() were"
-            + " found in the getStatusCodePriorityOrder() list. Offending set of http status codes (these should be "
-            + "added to the getStatusCodePriorityOrder() list for this project): {}", validStatusCodePossibilities
-        );
-
-        return null;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -383,20 +306,8 @@ public abstract class ProjectApiErrors {
      *          pass in has a defined order, then the output list will be in the same order minus any items that are
      *          removed.
      */
-    public List<ApiError> getSublistContainingOnlyHttpStatusCode(Collection<ApiError> fullList,
-                                                                 Integer filterHttpStatusCode) {
-        if (fullList == null || filterHttpStatusCode == null) {
-            return Collections.emptyList();
-        }
-
-        List<ApiError> filteredList = new ArrayList<>();
-        for (ApiError ae : fullList) {
-            if (ae.getHttpStatusCode() == filterHttpStatusCode) {
-                filteredList.add(ae);
-            }
-        }
-
-        return filteredList;
+    public List<ApiError> getSublistContainingOnlyHttpStatusCode(Collection<ApiError> fullList, Integer filterHttpStatusCode) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -426,52 +337,7 @@ public abstract class ProjectApiErrors {
      *                         errors.
      */
     protected void verifySpecialErrorsAreContainedInApiErrorList(List<ApiError> projectApiErrors) {
-        verifySpecialErrorIsContainedInApiErrorList(
-            getGenericServiceError(), projectApiErrors, "getGenericServiceError"
-        );
-        verifySpecialErrorIsContainedInApiErrorList(
-            getOusideDependencyReturnedAnUnrecoverableErrorApiError(), projectApiErrors,
-            "getOusideDependencyReturnedAnUnrecoverableErrorApiError"
-        );
-        verifySpecialErrorIsContainedInApiErrorList(
-            getServersideValidationApiError(), projectApiErrors, "getServersideValidationApiError"
-        );
-        verifySpecialErrorIsContainedInApiErrorList(
-            getTemporaryServiceProblemApiError(), projectApiErrors,
-                                                    "getTemporaryServiceProblemApiError");
-        verifySpecialErrorIsContainedInApiErrorList(
-            getOutsideDependencyReturnedTemporaryErrorApiError(), projectApiErrors,
-            "getOutsideDependencyReturnedTemporaryErrorApiError"
-        );
-        verifySpecialErrorIsContainedInApiErrorList(
-            getGenericBadRequestApiError(), projectApiErrors, "getGenericBadRequestApiError"
-        );
-        verifySpecialErrorIsContainedInApiErrorList(
-            getMissingExpectedContentApiError(), projectApiErrors, "getMissingExpectedContentApiError"
-        );
-        verifySpecialErrorIsContainedInApiErrorList(
-            getTypeConversionApiError(), projectApiErrors, "getTypeConversionApiError"
-        );
-        verifySpecialErrorIsContainedInApiErrorList(
-            getMalformedRequestApiError(), projectApiErrors, "getMalformedRequestApiError"
-        );
-        verifySpecialErrorIsContainedInApiErrorList(
-            getUnauthorizedApiError(), projectApiErrors, "getUnauthorizedApiError"
-        );
-        verifySpecialErrorIsContainedInApiErrorList(getForbiddenApiError(), projectApiErrors, "getForbiddenApiError");
-        verifySpecialErrorIsContainedInApiErrorList(getNotFoundApiError(), projectApiErrors, "getNotFoundApiError");
-        verifySpecialErrorIsContainedInApiErrorList(
-            getMethodNotAllowedApiError(), projectApiErrors, "getMethodNotAllowedApiError"
-        );
-        verifySpecialErrorIsContainedInApiErrorList(
-            getNoAcceptableRepresentationApiError(), projectApiErrors, "getNoAcceptableRepresentationApiError"
-        );
-        verifySpecialErrorIsContainedInApiErrorList(
-            getUnsupportedMediaTypeApiError(), projectApiErrors, "getUnsupportedMediaTypeApiError"
-        );
-        verifySpecialErrorIsContainedInApiErrorList(
-            getTooManyRequestsApiError(), projectApiErrors, "getTooManyRequestsApiError"
-        );
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -484,23 +350,8 @@ public abstract class ProjectApiErrors {
      *                               if an {@link IllegalStateException} needs to be thrown so you know which method to
      *                               fix.
      */
-    protected void verifySpecialErrorIsContainedInApiErrorList(ApiError specialError, List<ApiError> projectApiErrors,
-                                                               String specialErrorMethodName) {
-        if (specialError == null) {
-            throw new IllegalStateException(
-                "Special error method " + specialErrorMethodName + "() cannot return null. Class with illegal state: "
-                + this.getClass().getName()
-            );
-        }
-
-        if (!projectApiErrors.contains(specialError)) {
-            throw new IllegalStateException(
-                "Special error method " + specialErrorMethodName + "() returned an ApiError (" + specialError.getName()
-                + ") that was not found in the full getProjectApiErrors() list. This is not allowed - all special "
-                + "errors must be contained in the getProjectApiErrors() list. Class with illegal state: "
-                + this.getClass().getName()
-            );
-        }
+    protected void verifySpecialErrorIsContainedInApiErrorList(ApiError specialError, List<ApiError> projectApiErrors, String specialErrorMethodName) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -518,36 +369,7 @@ public abstract class ProjectApiErrors {
      * wrappers).
      */
     protected void verifyErrorsAreInRange(List<ApiError> projectSpecificErrors, List<ApiError> coreErrors) {
-        ProjectSpecificErrorCodeRange validRange = getProjectSpecificErrorCodeRange();
-
-        for (ApiError projectError : projectSpecificErrors) {
-            // Ignore wrappers around core errors
-            boolean isCoreError = isWrapperAroundCoreError(projectError, coreErrors);
-
-            if (!isCoreError) {
-                // It's not a wrapper around a core error.
-
-                // If validRange is null at this point then that constitutes an error since
-                //      getProjectSpecificErrorCodeRange() is only allowed to be null if the project is
-                //      100% core errors.
-                if (validRange == null) {
-                    throw new IllegalStateException(
-                        "The ProjectSpecificErrorCodeRange for this project is null, but there is an ApiError that is "
-                        + "not a core error. This project must have a ProjectSpecificErrorCodeRange that covers all "
-                        + "non-core errors. Offending ApiError: " + projectError.getName()
-                    );
-                }
-
-                // Check to make sure the project-specific error falls into the project's error range.
-                if (!validRange.isInRange(projectError)) {
-                    throw new IllegalStateException(
-                        "Found ApiError for this project with an error code that does not fall within the valid range "
-                        + "specified by " + validRange.getName() + ". ApiError: " + projectError.getName()
-                        + ". Error code value: " + projectError.getErrorCode()
-                    );
-                }
-            }
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -558,19 +380,6 @@ public abstract class ProjectApiErrors {
      *          match.
      */
     protected boolean isWrapperAroundCoreError(ApiError projectError, List<ApiError> coreErrors) {
-        if (projectError == null) {
-            return false;
-        }
-
-        for (ApiError coreApiError : coreErrors) {
-            boolean errorCodeMatches = Objects.equals(projectError.getErrorCode(), coreApiError.getErrorCode());
-            boolean messageMatches = Objects.equals(projectError.getMessage(), coreApiError.getMessage());
-            boolean httpStatusCodeMatches = coreApiError.getHttpStatusCode() == projectError.getHttpStatusCode();
-            if (errorCodeMatches && messageMatches && httpStatusCodeMatches) {
-                return true;
-            }
-        }
-
-        return false;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

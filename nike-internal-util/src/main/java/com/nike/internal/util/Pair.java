@@ -1,7 +1,6 @@
 package com.nike.internal.util;
 
 import org.jetbrains.annotations.NotNull;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Map;
@@ -11,7 +10,6 @@ import java.util.Objects;
 //       we don't have to pull in the entire library for just a few utilities. This was modified to remove the
 //       dependency on Apache Commons' ObjectUtils and CompareToBuilder. See the license notification in NOTICE.txt
 //       at the root of this project for license info.
-
 /**
  * <p>A pair consisting of two elements.</p>
  *
@@ -30,7 +28,9 @@ import java.util.Objects;
  */
 public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, R>>, Serializable {
 
-    /** Serialization version */
+    /**
+     * Serialization version
+     */
     @Serial
     private static final long serialVersionUID = 4954918890077093841L;
 
@@ -47,7 +47,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @return a pair formed from the two parameters, not null
      */
     public static <L, R> Pair<L, R> of(final L left, final R right) {
-        return new ImmutablePair<>(left, right);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     //-----------------------------------------------------------------------
@@ -79,7 +79,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      */
     @Override
     public final L getKey() {
-        return getLeft();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -92,7 +92,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      */
     @Override
     public R getValue() {
-        return getRight();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     //-----------------------------------------------------------------------
@@ -104,32 +104,12 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @return negative if this is less, zero if equal, positive if greater
      */
     @Override
-    public int compareTo(final @NotNull Pair<L, R> other) {
-
-        if (this == other)
-            return 0;
-
-        int leftComparison = compareObj(this.getLeft(), other.getLeft());
-        if (leftComparison != 0)
-            return leftComparison;
-
-        return compareObj(this.getRight(), other.getRight());
+    public int compareTo(@NotNull final Pair<L, R> other) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     protected <T> int compareObj(T thisObj, T otherObj) {
-
-        if (thisObj == otherObj)
-            return 0;
-
-        if (thisObj == null)
-            return -1;
-
-        if (otherObj == null)
-            return 1;
-
-        @SuppressWarnings("unchecked") // assume this can be done; if not throw CCE as per Javadoc
-            Comparable<Object> comparable = (Comparable<Object>) thisObj;
-        return comparable.compareTo(otherObj);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -140,14 +120,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      */
     @Override
     public boolean equals(final Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj instanceof Map.Entry<?, ?> other) {
-            return Objects.equals(getKey(), other.getKey())
-                   && Objects.equals(getValue(), other.getValue());
-        }
-        return false;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -158,9 +131,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      */
     @Override
     public int hashCode() {
-        // see Map.Entry API specification
-        return (getKey() == null ? 0 : getKey().hashCode()) ^
-               (getValue() == null ? 0 : getValue().hashCode());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -170,7 +141,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      */
     @Override
     public String toString() {
-        return "(" + getLeft() + ',' + getRight() + ')';
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -185,7 +156,6 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @return the formatted string, not null
      */
     public String toString(final String format) {
-        return String.format(format, getLeft(), getRight());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

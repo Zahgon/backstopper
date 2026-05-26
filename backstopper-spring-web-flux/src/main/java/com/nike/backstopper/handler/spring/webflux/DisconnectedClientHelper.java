@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.nike.backstopper.handler.spring.webflux;
 
 import org.springframework.core.NestedExceptionUtils;
-
 import java.util.Set;
 
 /**
@@ -26,34 +24,21 @@ import java.util.Set;
  */
 class DisconnectedClientHelper {
 
-	private static final Set<String> EXCEPTION_PHRASES =
-			Set.of("broken pipe", "connection reset");
+    private static final Set<String> EXCEPTION_PHRASES = Set.of("broken pipe", "connection reset");
 
-	private static final Set<String> EXCEPTION_TYPE_NAMES =
-			Set.of("AbortedException", "ClientAbortException",
-					"EOFException", "EofException", "AsyncRequestNotUsableException");
+    private static final Set<String> EXCEPTION_TYPE_NAMES = Set.of("AbortedException", "ClientAbortException", "EOFException", "EofException", "AsyncRequestNotUsableException");
 
-	/**
-	 * Whether the given exception indicates the client has gone away.
-	 * <p>Known cases covered:
-	 * <ul>
-	 * <li>ClientAbortException or EOFException for Tomcat
-	 * <li>EofException for Jetty
-	 * <li>IOException "Broken pipe" or "connection reset by peer"
-	 * <li>SocketException "Connection reset"
-	 * </ul>
-	 */
-	public static boolean isClientDisconnectedException(Throwable ex) {
-		String message = NestedExceptionUtils.getMostSpecificCause(ex).getMessage();
-		if (message != null) {
-			String text = message.toLowerCase();
-			for (String phrase : EXCEPTION_PHRASES) {
-				if (text.contains(phrase)) {
-					return true;
-				}
-			}
-		}
-		return EXCEPTION_TYPE_NAMES.contains(ex.getClass().getSimpleName());
-	}
-
+    /**
+     * Whether the given exception indicates the client has gone away.
+     * <p>Known cases covered:
+     * <ul>
+     * <li>ClientAbortException or EOFException for Tomcat
+     * <li>EofException for Jetty
+     * <li>IOException "Broken pipe" or "connection reset by peer"
+     * <li>SocketException "Connection reset"
+     * </ul>
+     */
+    public static boolean isClientDisconnectedException(Throwable ex) {
+        throw new UnsupportedOperationException("STUB: not implemented");
+    }
 }

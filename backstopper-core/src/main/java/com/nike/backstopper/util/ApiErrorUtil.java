@@ -1,7 +1,6 @@
 package com.nike.backstopper.util;
 
 import com.nike.backstopper.apierror.ApiError;
-
 import java.util.Objects;
 
 /**
@@ -20,20 +19,13 @@ public class ApiErrorUtil {
      * {@link ApiError}.
      */
     public static int generateApiErrorHashCode(ApiError apiError) {
-        return Objects.hash(apiError.getName(), apiError.getErrorCode(), apiError.getMessage(), apiError.getHttpStatusCode(), apiError.getMetadata());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Method for checking equality of two {@link ApiError}. This can be used in implementations of {@link ApiError}
      */
     public static boolean isApiErrorEqual(ApiError apiError, Object o) {
-        if (apiError == o) return true;
-        if (apiError == null) return false;
-        if (!(o instanceof ApiError that)) return false;
-        return apiError.getHttpStatusCode() == that.getHttpStatusCode() &&
-                Objects.equals(apiError.getName(), that.getName()) &&
-                Objects.equals(apiError.getErrorCode(), that.getErrorCode()) &&
-                Objects.equals(apiError.getMessage(), that.getMessage()) &&
-                Objects.equals(apiError.getMetadata(), that.getMetadata());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

@@ -3,7 +3,6 @@ package com.nike.internal.util;
 // NOTE: This code was copied from the Apache Commons Lang3 library (version 3.4) so that we don't have to pull in the
 //       entire library for just a few utilities. See the license notification in NOTICE.txt at the root of this project
 //       for license info.
-
 import java.io.Serial;
 
 /**
@@ -23,13 +22,20 @@ import java.io.Serial;
  */
 public final class ImmutablePair<L, R> extends Pair<L, R> {
 
-    /** Serialization version */
+    /**
+     * Serialization version
+     */
     @Serial
     private static final long serialVersionUID = 4954918890077093841L;
 
-    /** Left object */
+    /**
+     * Left object
+     */
     public final L left;
-    /** Right object */
+
+    /**
+     * Right object
+     */
     public final R right;
 
     /**
@@ -45,7 +51,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      * @return a pair formed from the two parameters, not null
      */
     public static <L, R> ImmutablePair<L, R> of(final L left, final R right) {
-        return new ImmutablePair<>(left, right);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -66,7 +72,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      */
     @Override
     public L getLeft() {
-        return left;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -74,7 +80,7 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      */
     @Override
     public R getRight() {
-        return right;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -88,7 +94,6 @@ public final class ImmutablePair<L, R> extends Pair<L, R> {
      */
     @Override
     public R setValue(final R value) {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

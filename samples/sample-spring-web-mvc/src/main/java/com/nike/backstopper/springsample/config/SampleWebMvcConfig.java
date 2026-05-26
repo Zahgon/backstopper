@@ -4,13 +4,11 @@ import com.nike.backstopper.apierror.projectspecificinfo.ProjectApiErrors;
 import com.nike.backstopper.handler.spring.config.BackstopperSpringWebMvcConfig;
 import com.nike.backstopper.springsample.controller.SampleController;
 import com.nike.backstopper.springsample.error.SampleProjectApiErrorsImpl;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 
@@ -27,12 +25,9 @@ import jakarta.validation.Validator;
  * @author Nic Munroe
  */
 @Configuration
-@Import({
-    // Import core Backstopper+Spring support.
-    BackstopperSpringWebMvcConfig.class,
-    // Import this sample app's controller.
-    SampleController.class
-})
+@Import({ // Import core Backstopper+Spring support.
+BackstopperSpringWebMvcConfig.class, // Import this sample app's controller.
+SampleController.class })
 @EnableWebMvc
 @SuppressWarnings("unused")
 public class SampleWebMvcConfig implements WebMvcConfigurer {
@@ -42,7 +37,7 @@ public class SampleWebMvcConfig implements WebMvcConfigurer {
      */
     @Bean
     public ProjectApiErrors getProjectApiErrors() {
-        return new SampleProjectApiErrorsImpl();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -57,6 +52,6 @@ public class SampleWebMvcConfig implements WebMvcConfigurer {
     @Bean
     @SuppressWarnings("resource")
     public Validator getJsr303Validator() {
-        return Validation.buildDefaultValidatorFactory().getValidator();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

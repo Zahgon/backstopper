@@ -3,18 +3,15 @@ package com.nike.backstopper.handler;
 import com.nike.backstopper.apierror.ApiError;
 import com.nike.internal.util.Pair;
 import com.nike.internal.util.StringUtils;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.MDC;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 
@@ -35,15 +32,18 @@ public class ApiExceptionHandlerUtils {
      * Constant for the Authorization header key.
      */
     public static final String AUTH_HEADER_KEY = "Authorization";
+
     /**
      * The default set of header keys that will be masked (hidden) when headers are output to the logs.
      */
     public static final Set<String> DEFAULT_MASKED_HEADER_KEYS = Collections.singleton(AUTH_HEADER_KEY);
+
     /**
      * The default header key that will be used when trying to determine the current distributed trace ID.
      * This particular key is from the B3 system used by Zipkin and Wingtips (and others).
      */
     public static final String DEFAULT_DISTRIBUTED_TRACE_ID_HEADER_KEY = "X-B3-TraceId";
+
     /**
      * The {@link MDC} key for trace ID - used by <a href="https://github.com/Nike-Inc/wingtips">Wingtips</a>
      * (for example) to store the current distributed tracing span's trace ID. We can use this in some cases to extract
@@ -56,18 +56,19 @@ public class ApiExceptionHandlerUtils {
      * and uses {@link #DEFAULT_DISTRIBUTED_TRACE_ID_HEADER_KEY} when extracting trace ID for the logs. You can override
      * this class and its methods if you need alternate behavior.
      */
-    public static final ApiExceptionHandlerUtils DEFAULT_IMPL =
-        new ApiExceptionHandlerUtils(true, DEFAULT_MASKED_HEADER_KEYS, DEFAULT_DISTRIBUTED_TRACE_ID_HEADER_KEY);
+    public static final ApiExceptionHandlerUtils DEFAULT_IMPL = new ApiExceptionHandlerUtils(true, DEFAULT_MASKED_HEADER_KEYS, DEFAULT_DISTRIBUTED_TRACE_ID_HEADER_KEY);
 
     /**
      * Set to true if you want to mask any of the {@link #sensitiveHeaderKeysForMasking} headers, false if all headers
      * should be output as-is.
      */
     protected final boolean maskSensitiveHeaders;
+
     /**
      * Header keys for sensitive headers that should be masked when logging.
      */
     protected final Set<String> sensitiveHeaderKeysForMasking;
+
     /**
      * The header key for the distributed trace ID header.
      */
@@ -94,14 +95,11 @@ public class ApiExceptionHandlerUtils {
      *                                    trace ID for the request. This can safely be null if you don't expect
      *                                    distributed tracing info to be available in the request headers or attributes.
      */
-    public ApiExceptionHandlerUtils(boolean maskSensitiveHeaders, Set<String> sensitiveHeaderKeysForMasking,
-                                    String distributedTraceIdHeaderKey) {
+    public ApiExceptionHandlerUtils(boolean maskSensitiveHeaders, Set<String> sensitiveHeaderKeysForMasking, String distributedTraceIdHeaderKey) {
         if (sensitiveHeaderKeysForMasking == null)
             sensitiveHeaderKeysForMasking = Collections.emptySet();
-
         if (sensitiveHeaderKeysForMasking.isEmpty())
             maskSensitiveHeaders = false;
-
         this.maskSensitiveHeaders = maskSensitiveHeaders;
         this.sensitiveHeaderKeysForMasking = sensitiveHeaderKeysForMasking;
         this.distributedTraceIdHeaderKey = distributedTraceIdHeaderKey;
@@ -111,9 +109,8 @@ public class ApiExceptionHandlerUtils {
      * Adds the given exception's {@link Exception#getMessage()} to the given extraDetailsForLogging with the key of
      * "exception_message" and with the exception's message pruned of quotes via {@link #quotesToApostrophes(String)}.
      */
-    public void addBaseExceptionMessageToExtraDetailsForLogging(Throwable ex,
-                                                                List<Pair<String, String>> extraDetailsForLogging) {
-        extraDetailsForLogging.add(Pair.of("exception_message", quotesToApostrophes(ex.getMessage())));
+    public void addBaseExceptionMessageToExtraDetailsForLogging(Throwable ex, List<Pair<String, String>> extraDetailsForLogging) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -121,10 +118,7 @@ public class ApiExceptionHandlerUtils {
      *          given raw string is null.
      */
     public String quotesToApostrophes(String raw) {
-        if (raw == null)
-            return null;
-
-        return raw.replace('\"', '\'');
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -136,26 +130,7 @@ public class ApiExceptionHandlerUtils {
      *          whatever rules you want.
      */
     public String extractDistributedTraceId(RequestInfoForLogging request) {
-        String traceIdToUse = null;
-
-        if (distributedTraceIdHeaderKey != null) {
-            String dtraceIdFromHeader = request.getHeader(distributedTraceIdHeaderKey);
-            Object dtraceIdFromAttribute = request.getAttribute(distributedTraceIdHeaderKey);
-            if (StringUtils.isNotBlank(dtraceIdFromHeader))
-                traceIdToUse = dtraceIdFromHeader.trim();
-            else if (dtraceIdFromAttribute != null && StringUtils.isNotBlank(dtraceIdFromAttribute.toString()))
-                traceIdToUse = dtraceIdFromAttribute.toString().trim();
-        }
-
-        if (traceIdToUse == null) {
-            // As a last resort try to get it from the MDC since some distributed systems (e.g. Wingtips) put the
-            //      trace ID there.
-            String fromMdc = MDC.get(TRACE_ID_MDC_KEY);
-            if (fromMdc != null)
-                traceIdToUse = fromMdc.trim();
-        }
-
-        return traceIdToUse;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -167,65 +142,18 @@ public class ApiExceptionHandlerUtils {
      *          response body so that you can trivially go from the response to the log message that has all the
      *          debugging info.
      */
-    public String buildErrorMessageForLogs(StringBuilder sb, RequestInfoForLogging request,
-                                           Collection<ApiError> contributingErrors, Integer httpStatusCode,
-                                           Throwable cause, List<Pair<String, String>> extraDetailsForLogging) {
-
-        String errorUid = UUID.randomUUID().toString();
-        String traceId = extractDistributedTraceId(request);
-        String requestUri = request.getRequestUri();
-        String requestMethod = request.getRequestHttpMethod();
-        String queryString = request.getQueryString();
-        String headersString = parseRequestHeadersToString(request);
-        String contributingErrorsString = concatenateErrorCollection(contributingErrors);
-
-        sb.append("error_uid=").append(errorUid)
-          .append(", dtrace_id=").append(traceId)
-          .append(", exception_class=").append(cause.getClass().getName())
-          .append(", returned_http_status_code=").append(httpStatusCode)
-          .append(", contributing_errors=\"").append(contributingErrorsString)
-          .append("\", request_uri=\"").append(requestUri);
-
-        Object origErrorRequestUriAttr = extractOrigErrorRequestUriAttr(request);
-        if (origErrorRequestUriAttr != null) {
-            sb.append("\", orig_error_request_uri=\"").append(origErrorRequestUriAttr);
-        }
-
-        Object origForwardedRequestUriAttr = extractOrigForwardedRequestUriAttr(request);
-        if (origForwardedRequestUriAttr != null) {
-            sb.append("\", orig_forwarded_request_uri=\"").append(origForwardedRequestUriAttr);
-        }
-
-        sb.append("\", request_method=\"").append(requestMethod)
-          .append("\", query_string=\"").append(queryString)
-          .append("\", request_headers=\"").append(headersString)
-          .append("\"");
-
-        if (extraDetailsForLogging != null) {
-            for (Pair<String, String> logMe : extraDetailsForLogging) {
-                sb.append(", ").append(logMe.getLeft()).append("=\"").append(logMe.getRight()).append('\"');
-            }
-        }
-
-        return errorUid;
+    public String buildErrorMessageForLogs(StringBuilder sb, RequestInfoForLogging request, Collection<ApiError> contributingErrors, Integer httpStatusCode, Throwable cause, List<Pair<String, String>> extraDetailsForLogging) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    protected @Nullable Object extractOrigErrorRequestUriAttr(@NotNull RequestInfoForLogging request) {
-        // Corresponds to jakarta.servlet.RequestDispatcher.ERROR_REQUEST_URI.
-        return request.getAttribute("jakarta.servlet.error.request_uri");
+    @Nullable
+    protected Object extractOrigErrorRequestUriAttr(@NotNull RequestInfoForLogging request) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    protected @Nullable Object extractOrigForwardedRequestUriAttr(@NotNull RequestInfoForLogging request) {
-        // Corresponds to jakarta.servlet.RequestDispatcher.FORWARD_REQUEST_URI.
-        Object forwardedRequestUriAttr = request.getAttribute("jakarta.servlet.forward.request_uri");
-
-        if (forwardedRequestUriAttr != null) {
-            return forwardedRequestUriAttr;
-        }
-
-        // The forwarded request URI attr was null. Try the path info attr as a last resort.
-        //      Corresponds to jakarta.servlet.RequestDispatcher.FORWARD_PATH_INFO.
-        return request.getAttribute("jakarta.servlet.forward.path_info");
+    @Nullable
+    protected Object extractOrigForwardedRequestUriAttr(@NotNull RequestInfoForLogging request) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -234,26 +162,7 @@ public class ApiExceptionHandlerUtils {
      *          NOTE: This method never throws an exception. If it catches one it will return blank string "" instead.
      */
     public String parseRequestHeadersToString(RequestInfoForLogging request) {
-        try {
-            Map<String, List<String>> headers = request.getHeadersMap();
-            if (headers == null || headers.isEmpty())
-                return "";
-
-            Set<String> headerNames = headers.keySet();
-            StringBuilder sb = new StringBuilder();
-            boolean first = true;
-            for (String headerName : headerNames) {
-                if (!first)
-                    sb.append(",");
-                sb.append(parseSpecificHeaderToString(request, headerName));
-                first = false;
-            }
-
-            return sb.toString();
-        }
-        catch(Exception ex) {
-            return "";
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -263,40 +172,8 @@ public class ApiExceptionHandlerUtils {
      *          NOTE: This method never throws an exception. If it catches one it will return blank string "" instead.
      */
     public String parseSpecificHeaderToString(RequestInfoForLogging request, String headerName) {
-        try {
-            if (maskSensitiveHeaders && containsCaseInSensitive(sensitiveHeaderKeysForMasking, headerName)) {
-                return headerName + "=[MASKED]";
-            } else {
-                List<String> headerValues = request.getHeaders(headerName);
-                if (headerValues == null || headerValues.isEmpty())
-                    return "";
-
-                StringBuilder sb = new StringBuilder();
-                sb.append(headerName).append("=");
-                // If we have more than one header for this header name, display it as an array.
-                if (headerValues.size() > 1)
-                    sb.append('[');
-
-                boolean first = true;
-                for (String header : headerValues) {
-                    if (!first)
-                        sb.append(",");
-                    sb.append(header);
-                    first = false;
-                }
-
-                // Close the array if appropriate
-                if (headerValues.size() > 1)
-                    sb.append(']');
-
-                return sb.toString();
-            }
-        }
-        catch(Exception ex) {
-            return "";
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 
     /**
      * @param sensitiveHeaders The set of sensitive headers names.
@@ -304,7 +181,6 @@ public class ApiExceptionHandlerUtils {
      * @return Returns true if the header name is one of the sensitive headers in lower, upper or camel case.
      */
     private static boolean containsCaseInSensitive(Set<String> sensitiveHeaders, String headerName) {
-
         for (String header : sensitiveHeaders) {
             if (header.equalsIgnoreCase(headerName)) {
                 return true;
@@ -313,26 +189,12 @@ public class ApiExceptionHandlerUtils {
         return false;
     }
 
-
     /**
      * @return Helper method for turning the given collection into a comma-delimited string of
      *          {@link ApiError#getName()}. Will return blank string (not null) if you pass in null or an empty
      *          collection.
      */
     public String concatenateErrorCollection(Collection<ApiError> errors) {
-        if (errors == null || errors.isEmpty())
-            return "";
-
-        StringBuilder sb = new StringBuilder();
-        boolean first = true;
-        for (ApiError error : errors) {
-            if (!first)
-                sb.append(',');
-            sb.append(error.getName());
-            first = false;
-        }
-
-        return sb.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

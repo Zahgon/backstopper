@@ -6,7 +6,6 @@ import com.nike.backstopper.apierror.projectspecificinfo.ProjectApiErrors;
 import com.nike.backstopper.handler.ApiExceptionHandlerUtils;
 import com.nike.backstopper.handler.listener.ApiExceptionHandlerListenerResult;
 import com.nike.internal.util.Pair;
-
 import org.jetbrains.annotations.NotNull;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
@@ -16,10 +15,8 @@ import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
@@ -33,8 +30,7 @@ import jakarta.inject.Singleton;
 @Named
 @Singleton
 @SuppressWarnings("WeakerAccess")
-public class OneOffSpringWebMvcFrameworkExceptionHandlerListener
-    extends OneOffSpringCommonFrameworkExceptionHandlerListener {
+public class OneOffSpringWebMvcFrameworkExceptionHandlerListener extends OneOffSpringCommonFrameworkExceptionHandlerListener {
 
     /**
      * @param projectApiErrors The {@link ProjectApiErrors} that should be used by this instance when finding {@link
@@ -43,80 +39,17 @@ public class OneOffSpringWebMvcFrameworkExceptionHandlerListener
      * {@link ApiExceptionHandlerUtils#DEFAULT_IMPL} if you don't need custom logic.
      */
     @Inject
-    public OneOffSpringWebMvcFrameworkExceptionHandlerListener(ProjectApiErrors projectApiErrors,
-                                                               ApiExceptionHandlerUtils utils) {
+    public OneOffSpringWebMvcFrameworkExceptionHandlerListener(ProjectApiErrors projectApiErrors, ApiExceptionHandlerUtils utils) {
         super(projectApiErrors, utils);
     }
 
     @Override
-    protected @NotNull ApiExceptionHandlerListenerResult handleSpringMvcOrWebfluxSpecificFrameworkExceptions(
-        @NotNull Throwable ex
-    ) {
-        List<Pair<String, String>> extraDetailsForLogging = new ArrayList<>();
-        
-        if (ex instanceof ServletRequestBindingException) {
-            return handleServletRequestBindingException((ServletRequestBindingException)ex, extraDetailsForLogging);
-        }
-
-        if (ex instanceof HttpMediaTypeNotAcceptableException) {
-            return handleError(projectApiErrors.getNoAcceptableRepresentationApiError(), extraDetailsForLogging);
-        }
-
-        if (ex instanceof HttpMediaTypeNotSupportedException) {
-            return handleError(projectApiErrors.getUnsupportedMediaTypeApiError(), extraDetailsForLogging);
-        }
-
-        if (ex instanceof HttpRequestMethodNotSupportedException) {
-            return handleError(projectApiErrors.getMethodNotAllowedApiError(), extraDetailsForLogging);
-        }
-
-        if (ex instanceof MissingServletRequestPartException detailsEx) {
-            return handleError(
-                new ApiErrorWithMetadata(
-                    projectApiErrors.getMalformedRequestApiError(),
-                    Pair.of("missing_required_part", detailsEx.getRequestPartName())
-                ),
-                extraDetailsForLogging
-            );
-        }
-
-        // This exception is not handled here.
-        return ApiExceptionHandlerListenerResult.ignoreResponse();
+    @NotNull
+    protected ApiExceptionHandlerListenerResult handleSpringMvcOrWebfluxSpecificFrameworkExceptions(@NotNull Throwable ex) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    protected ApiExceptionHandlerListenerResult handleServletRequestBindingException(
-        ServletRequestBindingException ex,
-        List<Pair<String, String>> extraDetailsForLogging
-    ) {
-        // Malformed requests can be difficult to track down - add the exception's message to our logging details
-        utils.addBaseExceptionMessageToExtraDetailsForLogging(ex, extraDetailsForLogging);
-
-        ApiError errorToUse = projectApiErrors.getMalformedRequestApiError();
-
-        // Add some extra context metadata if it's a MissingServletRequestParameterException.
-        if (ex instanceof MissingServletRequestParameterException detailsEx) {
-
-            errorToUse = new ApiErrorWithMetadata(
-                errorToUse,
-                Pair.of("missing_param_name", detailsEx.getParameterName()),
-                Pair.of("missing_param_type", detailsEx.getParameterType()),
-                Pair.of("required_location", "query_param")
-            );
-        }
-        else if (ex instanceof MissingRequestHeaderException mrhEx) {
-            MethodParameter methodParam = mrhEx.getParameter();
-            String requiredTypeNoInfoLeak = extractRequiredTypeNoInfoLeak(methodParam.getParameterType());
-            if (requiredTypeNoInfoLeak == null) {
-                requiredTypeNoInfoLeak = "unknown";
-            }
-            errorToUse = new ApiErrorWithMetadata(
-                errorToUse,
-                Pair.of("missing_param_name", mrhEx.getHeaderName()),
-                Pair.of("missing_param_type", requiredTypeNoInfoLeak),
-                Pair.of("required_location", "header")
-            );
-        }
-
-        return handleError(errorToUse, extraDetailsForLogging);
+    protected ApiExceptionHandlerListenerResult handleServletRequestBindingException(ServletRequestBindingException ex, List<Pair<String, String>> extraDetailsForLogging) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

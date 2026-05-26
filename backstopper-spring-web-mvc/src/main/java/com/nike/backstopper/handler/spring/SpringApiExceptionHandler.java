@@ -9,16 +9,13 @@ import com.nike.backstopper.handler.RequestInfoForLogging;
 import com.nike.backstopper.handler.UnexpectedMajorExceptionHandlingError;
 import com.nike.backstopper.handler.spring.listener.ApiExceptionHandlerListenerList;
 import com.nike.backstopper.model.DefaultErrorContractDTO;
-
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.Collection;
-
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
@@ -37,8 +34,7 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @Named
 @Singleton
-public class SpringApiExceptionHandler extends ApiExceptionHandlerServletApiBase<ModelAndView>
-    implements HandlerExceptionResolver, Ordered {
+public class SpringApiExceptionHandler extends ApiExceptionHandlerServletApiBase<ModelAndView> implements HandlerExceptionResolver, Ordered {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -54,47 +50,19 @@ public class SpringApiExceptionHandler extends ApiExceptionHandlerServletApiBase
     protected final SpringApiExceptionHandlerUtils springUtils;
 
     @Inject
-    public SpringApiExceptionHandler(ProjectApiErrors projectApiErrors,
-                                     ApiExceptionHandlerListenerList apiExceptionHandlerListeners,
-                                     ApiExceptionHandlerUtils generalUtils,
-                                     SpringApiExceptionHandlerUtils springUtils) {
+    public SpringApiExceptionHandler(ProjectApiErrors projectApiErrors, ApiExceptionHandlerListenerList apiExceptionHandlerListeners, ApiExceptionHandlerUtils generalUtils, SpringApiExceptionHandlerUtils springUtils) {
         super(projectApiErrors, apiExceptionHandlerListeners.listeners, generalUtils);
         this.springUtils = springUtils;
     }
 
     @Override
-    protected ModelAndView prepareFrameworkRepresentation(
-        DefaultErrorContractDTO errorContractDTO, int httpStatusCode, Collection<ApiError> rawFilteredApiErrors,
-        Throwable originalException, RequestInfoForLogging request
-    ) {
-        return springUtils.generateModelAndViewForErrorResponse(
-            errorContractDTO, httpStatusCode, rawFilteredApiErrors, originalException, request
-        );
+    protected ModelAndView prepareFrameworkRepresentation(DefaultErrorContractDTO errorContractDTO, int httpStatusCode, Collection<ApiError> rawFilteredApiErrors, Throwable originalException, RequestInfoForLogging request) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
-    public ModelAndView resolveException(
-        @NotNull HttpServletRequest request,
-        @NotNull HttpServletResponse response,
-        Object handler,
-        @NotNull Exception ex
-    ) {
-
-        try {
-            ErrorResponseInfo<ModelAndView> errorResponseInfo = maybeHandleException(ex, request, response);
-
-            if (errorResponseInfo == null) {
-                return null;
-            }
-
-            return errorResponseInfo.frameworkRepresentationObj;
-        } catch (UnexpectedMajorExceptionHandlingError ohNoException) {
-            logger.error("Unexpected major error while handling exception. {} should handle it.",
-                         SpringUnhandledExceptionHandler.class.getName(), ohNoException
-            );
-            return null;
-        }
-
+    public ModelAndView resolveException(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, Object handler, @NotNull Exception ex) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -102,14 +70,14 @@ public class SpringApiExceptionHandler extends ApiExceptionHandlerServletApiBase
      */
     @Override
     public int getOrder() {
-        return order;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * See the javadocs for {@link #order} for info on what this is for.
      */
-    @SuppressWarnings({"unused"})
+    @SuppressWarnings({ "unused" })
     public void setOrder(int order) {
-        this.order = order;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

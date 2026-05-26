@@ -20,12 +20,6 @@ public class TestUtils {
      * it will be wrapped in a {@link RuntimeException}.
      */
     public static int findFreePort() {
-        try (ServerSocket serverSocket = new ServerSocket(0)) {
-            serverSocket.setReuseAddress(true);
-            return serverSocket.getLocalPort();
-        }
-        catch (IOException e) {
-            throw new RuntimeException("Error while trying to find a free port.", e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

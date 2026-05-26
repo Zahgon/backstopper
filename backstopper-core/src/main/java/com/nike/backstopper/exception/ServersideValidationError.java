@@ -1,9 +1,7 @@
 package com.nike.backstopper.exception;
 
 import com.nike.backstopper.apierror.projectspecificinfo.ProjectApiErrors;
-
 import java.util.Set;
-
 import jakarta.validation.ConstraintViolation;
 
 /**
@@ -26,7 +24,9 @@ import jakarta.validation.ConstraintViolation;
  * @author Nic Munroe
  */
 public class ServersideValidationError extends RuntimeException {
+
     private final Object objectThatFailedValidation;
+
     private final Set<ConstraintViolation<Object>> violations;
 
     public ServersideValidationError(Object objectThatFailedValidation, Set<ConstraintViolation<Object>> violations) {
@@ -35,10 +35,10 @@ public class ServersideValidationError extends RuntimeException {
     }
 
     public Object getObjectThatFailedValidation() {
-        return objectThatFailedValidation;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public Set<ConstraintViolation<Object>> getViolations() {
-        return violations;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

@@ -2,7 +2,6 @@ package com.nike.backstopper.handler.spring;
 
 import com.nike.backstopper.apierror.projectspecificinfo.ProjectApiErrors;
 import com.nike.backstopper.servletapi.UnhandledServletContainerErrorHelper;
-
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
@@ -10,11 +9,8 @@ import org.springframework.context.annotation.ConfigurationCondition;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import jakarta.servlet.ServletRequest;
-
 import static com.nike.backstopper.handler.spring.SpringContainerErrorController.SpringbootErrorControllerIsNotOnClasspath;
-
 
 /**
  * The purpose of this controller is to give a place for the Servlet container to route errors to that would otherwise
@@ -47,29 +43,27 @@ import static com.nike.backstopper.handler.spring.SpringContainerErrorController
 @Conditional(SpringbootErrorControllerIsNotOnClasspath.class)
 public class SpringContainerErrorController {
 
-    protected final @NotNull ProjectApiErrors projectApiErrors;
-    protected final @NotNull UnhandledServletContainerErrorHelper unhandledServletContainerErrorHelper;
+    @NotNull
+    protected final ProjectApiErrors projectApiErrors;
+
+    @NotNull
+    protected final UnhandledServletContainerErrorHelper unhandledServletContainerErrorHelper;
 
     @SuppressWarnings("ConstantConditions")
-    public SpringContainerErrorController(
-        @NotNull ProjectApiErrors projectApiErrors,
-        @NotNull UnhandledServletContainerErrorHelper unhandledServletContainerErrorHelper
-    ) {
+    public SpringContainerErrorController(@NotNull ProjectApiErrors projectApiErrors, @NotNull UnhandledServletContainerErrorHelper unhandledServletContainerErrorHelper) {
         if (projectApiErrors == null) {
             throw new NullPointerException("ProjectApiErrors cannot be null.");
         }
-
         if (unhandledServletContainerErrorHelper == null) {
             throw new NullPointerException("UnhandledServletContainerErrorHelper cannot be null.");
         }
-
         this.projectApiErrors = projectApiErrors;
         this.unhandledServletContainerErrorHelper = unhandledServletContainerErrorHelper;
     }
 
     @RequestMapping
     public void error(ServletRequest request) throws Throwable {
-        throw unhandledServletContainerErrorHelper.extractOrGenerateErrorForRequest(request, projectApiErrors);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -86,26 +80,18 @@ public class SpringContainerErrorController {
     protected static class SpringbootErrorControllerIsNotOnClasspath implements ConfigurationCondition {
 
         @Override
-        public @NotNull ConfigurationPhase getConfigurationPhase() {
-            return ConfigurationPhase.REGISTER_BEAN;
+        @NotNull
+        public ConfigurationPhase getConfigurationPhase() {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
-        public boolean matches(
-            @NotNull ConditionContext context, @NotNull AnnotatedTypeMetadata metadata
-        ) {
-            // If we're in a Springboot application we want to return false to prevent registration.
-            return !isClassAvailableOnClasspath("org.springframework.boot.web.servlet.error.ErrorController");
+        public boolean matches(@NotNull ConditionContext context, @NotNull AnnotatedTypeMetadata metadata) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         protected boolean isClassAvailableOnClasspath(String classname) {
-            try {
-                Class.forName(classname);
-                return true;
-            }
-            catch (ClassNotFoundException e) {
-                return false;
-            }
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 }
